@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+.profile_main{
+    width: 70%;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: #ECFBFE;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px;
+    .profile{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: #ffffff;
+        margin: 0 10px 10px 10px;
+        border-radius: 5px;
+        padding: 20px;
+        .profile_picture{
+            width: 260px;
+            height: 100px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px 10px 5px;
+            img{
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+            }
+        }
+        h1{
+            color: #2B3674;
+            font-size: 1.5rem;
+            margin: 20px 0;
+            padding: 0;
+        }
+        h3{
+            color: #AFAFAF;
+        }
+    }
+    .settings{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: #ffffff;
+        margin: 0 10px 10px 10px;
+        border-radius: 5px;
+        padding: 20px 100px;
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin: 0 0 20px 0;
+            th{
+                text-align: left;
+                padding: 10px;
+                color: #2B3674;
+                font-size: 18px;
+                border-bottom: 1px solid #e6e6e6;
+                border-right: 1px solid #e6e6e6;
+            }
+            td{
+                text-align: left;
+                padding: 10px;
+                color: #656565;
+                border-bottom: 1px solid #e6e6e6;
+                .material-icons{
+                    color: #656565;
+                    cursor: pointer;
+                }
+                select#gender{
+                    Border: none;
+                }
+            }
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
