@@ -8,10 +8,34 @@ import { useState, useEffect } from "react";
 function Report_Overview() {
 
 
-    const { data: reportsData, isLoading, isError } = useQuery(
+    const { data: reportsDataTP, isLoadingTP, isErrorTP } = useQuery(
         ["reportsData"],
         async () => {
             const response = await makeRequest.get(`/reports/todayP`);
+            return response.data;
+        }
+    );
+
+    const { data: reportsDataTU, isLoadingTU, isErrorTU } = useQuery(
+        ["reportsData"],
+        async () => {
+            const response = await makeRequest.get(`/reports/todayU`);
+            return response.data;
+        }
+    );
+
+    const { data: reportsDataOP, isLoadingOP, isErrorOP } = useQuery(
+        ["reportsData"],
+        async () => {
+            const response = await makeRequest.get(`/reports/ongoingP`);
+            return response.data;
+        }
+    );
+
+    const { data: reportsDataOU, isLoadingOU, isErrorOU } = useQuery(
+        ["reportsData"],
+        async () => {
+            const response = await makeRequest.get(`/reports/ongoingU`);
             return response.data;
         }
     );
@@ -23,28 +47,34 @@ function Report_Overview() {
                 <div className="summary_card">
                     <p>Post Reports Today
                         <br />
-                        {reportsData && (
-                            <span>{reportsData[0]?.count}</span>
+                        {reportsDataTP && (
+                            <span>{reportsDataTP[0]?.count}</span>
                         )}
                     </p>
                 </div>
                 <div className="summary_card">
                     <p>User Reports Today
                         <br />
-                        <span>35</span>
-
+                        {/* <span>35</span> */}
+                        {reportsDataTU && (
+                            <span>{reportsDataTU[0]?.count}</span>
+                        )}
                     </p>
                 </div>
                 <div className="summary_card">
                     <p>Ongoing Post Reports
                         <br />
-                        <span>35</span>
+                        {reportsDataOP && (
+                            <span>{reportsDataOP[0]?.count}</span>
+                        )}
                     </p>
                 </div>
                 <div className="summary_card">
                     <p>Ongoing User Reports
                         <br />
-                        <span>35</span>
+                        {reportsDataOU && (
+                            <span>{reportsDataOU[0]?.count}</span>
+                        )}
                     </p>
                 </div>
             </div>

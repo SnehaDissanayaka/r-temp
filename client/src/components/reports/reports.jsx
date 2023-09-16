@@ -1,39 +1,3 @@
-// import './reports.scss';
-// import Post_Report_tnd from './post_reports_nd';
-// import User_Report_tnd from './user_reports_nd';
-// import Post_Report_td from './post_reports_d';
-// import User_Report_td from './user_reports_d';
-// import Report_Overview from './overview';
-
-// function Reports() {
-
-//     return (
-//         <div className="report_main">
-//             <div className="report_menu">
-//                 {/* A radio button group */}
-
-//                 <div className="report_menu_item">
-//                     <p>Report Overview</p>
-//                 </div>
-//                 <div className="report_menu_item">
-//                     <p>Post Reports</p>
-//                 </div>
-//                 <div className="report_menu_item">
-//                     <p>User Reports</p>
-//                 </div>
-//             </div>
-//             <Report_Overview />
-//             <div className="tables">
-//                 <Post_Report_tnd />
-//                 <User_Report_tnd />
-//                 <Post_Report_td />
-//                 <User_Report_td />
-//             </div>
-//         </div>
-//     );
-// }
-
-// export default Reports;
 import React, { useState } from 'react';
 import './reports.scss';
 import Post_Report_tnd from './post_reports_nd';
