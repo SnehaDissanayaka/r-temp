@@ -67,5 +67,16 @@ const getallprDetails = asyncHandler(async (selectedPostID) => {
     return result.rows;
 });
 
+const getallprCount = asyncHandler(async (selectedPostID) => {
+    const sql = "SELECT COUNT(report.*) AS report_count FROM report WHERE reported_post_id = $1";
+    const result = await query(sql, [selectedPostID]);
+    return result.rows;
+});
 
-export { getTodaypReports, getTodayuReports, getOngoingpReports, getOngoinguReports, getuReportsND, getpReportsND, getuReportsD, getpReportsD, getpReportDetails, getpDetails, getallprDetails };
+const updatearchivePost = asyncHandler(async (selectedPostID) => {
+    const sql = "UPDATE post SET archived = true WHERE post_id = $1";
+    const result = await query(sql, [selectedPostID]);
+    return result.rows;
+});
+
+export { getTodaypReports, getTodayuReports, getOngoingpReports, getOngoinguReports, getuReportsND, getpReportsND, getuReportsD, getpReportsD, getpReportDetails, getpDetails, getallprDetails, getallprCount, updatearchivePost };

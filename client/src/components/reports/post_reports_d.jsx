@@ -36,6 +36,7 @@ function Post_Report_td() {
             <table>
                 <thead>
                     <tr>
+                        <th>Report ID</th>
                         <th>Poster</th>
                         <th>Post ID</th>
                         <th>Report Type</th>
@@ -48,6 +49,7 @@ function Post_Report_td() {
                 <tbody>
                     {reportsData && reportsData.map((row) => (
                         <tr key={row.id}>
+                            <td>{row.report_id}</td>
                             <td>{row.poster_name}</td>
                             <td>{row.reported_post_id}</td>
                             <td>{row.type}</td>
