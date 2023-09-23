@@ -83,6 +83,8 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
                 <div className='content'>
                     <h4>
                         Post ID : {PostreportData ? PostreportData[0].reported_post_id : "Loading..."}
+                        <br />
+                        <span>Post Status : {PostreportData ? (PostreportData[0].archived == true ? "Post Removed" : "Currently Displaying") : "Loading..."}</span>
                     </h4>
                     <br />
                     <p>

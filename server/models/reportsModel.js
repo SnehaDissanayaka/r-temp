@@ -73,10 +73,11 @@ const getallprCount = asyncHandler(async (selectedPostID) => {
     return result.rows;
 });
 
-const updatearchivePost = asyncHandler(async (selectedPostID) => {
+const updatearchivePost = asyncHandler(async (postID) => {
+    console.log("Shall Archive post with ID:", postID);
     const sql = "UPDATE post SET archived = true WHERE post_id = $1";
-    const result = await query(sql, [selectedPostID]);
-    return result.rows;
+    const result = await query(sql, [postID]);
+    return true;
 });
 
 export { getTodaypReports, getTodayuReports, getOngoingpReports, getOngoinguReports, getuReportsND, getpReportsND, getuReportsD, getpReportsD, getpReportDetails, getpDetails, getallprDetails, getallprCount, updatearchivePost };

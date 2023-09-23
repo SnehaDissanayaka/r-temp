@@ -137,9 +137,12 @@ const getAllReportCount = AsyncHandler(async (req, res) => {
 });
 
 const archivePost = AsyncHandler(async (req, res) => {
-    const preport = await updatearchivePost(req.query.selectedPostID);
+    console.log("Archiving post with ID:", req.query.postID);
+    const preport = await updatearchivePost(req.query.postID);
     if (preport) {
         res.status(200).json(preport);
+        console.log("Archived post with ID:", req.query.postID);
+
     } else {
         res.status(404);
         throw new Error("Users not found");
