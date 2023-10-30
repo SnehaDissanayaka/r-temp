@@ -33,6 +33,7 @@ const loginUser = asyncHandler(async (req, res) => {
             lastname: user.lastname,
             user_id: user.user_id,
             email: user.email,
+            contact_no: user.contact_no,
             profile_pic: user.profile_pic,
             cover_pic: user.cover_pic,
         });
@@ -46,10 +47,15 @@ const loginUser = asyncHandler(async (req, res) => {
 // route   POST /api/users/logout
 // access  Private (users who only has token/login can access)
 const logoutUser = asyncHandler(async (req, res) => {
+    console.log("logout11");
     res.cookie("jwt", "", {
         httpOnly: true,
         expires: new Date(Date.now()),
     });
+    // res.clearCookie("jwt"); // Clear the JWT (or your session) cookie
+
+
+    console.log("Logout successful");
 
     res.status(200).json({ message: "User logged out" });
 });

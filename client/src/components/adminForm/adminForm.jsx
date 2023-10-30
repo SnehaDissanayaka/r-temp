@@ -1,7 +1,7 @@
 import './adminForm.scss';
 
 function AdminForm() {
-    return(
+    return (
         <div className="admin_form_main">
             <div className="admin_form">
                 <div className="form_title">

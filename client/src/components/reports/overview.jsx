@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 function Report_Overview() {
 
 
-    const { data: reportsDataTP, isLoadingTP, isErrorTP } = useQuery(
+    const { data: reportsDataTP } = useQuery(
         ["reportsData"],
         async () => {
             const response = await makeRequest.get(`/reports/todayP`);
@@ -16,7 +16,7 @@ function Report_Overview() {
         }
     );
 
-    const { data: reportsDataTU, isLoadingTU, isErrorTU } = useQuery(
+    const { data: reportsDataTU } = useQuery(
         ["reportsData"],
         async () => {
             const response = await makeRequest.get(`/reports/todayU`);
@@ -24,7 +24,7 @@ function Report_Overview() {
         }
     );
 
-    const { data: reportsDataOP, isLoadingOP, isErrorOP } = useQuery(
+    const { data: reportsDataOP } = useQuery(
         ["reportsData"],
         async () => {
             const response = await makeRequest.get(`/reports/ongoingP`);
@@ -32,7 +32,7 @@ function Report_Overview() {
         }
     );
 
-    const { data: reportsDataOU, isLoadingOU, isErrorOU } = useQuery(
+    const { data: reportsDataOU } = useQuery(
         ["reportsData"],
         async () => {
             const response = await makeRequest.get(`/reports/ongoingU`);
@@ -41,7 +41,8 @@ function Report_Overview() {
     );
 
     // console.log(reportsDataOP[0]);
-    // console.log(reportsDataOU[0]);
+    // console.log(reportsDataOU);
+
 
 
     return (

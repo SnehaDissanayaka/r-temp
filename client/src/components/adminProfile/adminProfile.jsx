@@ -1,14 +1,18 @@
 import './adminProfile.scss';
+
 import ProfilePic from '../../assets/images/pfpmale.jpg';
 import { Link } from 'react-router-dom';
 
 function AdminProfile() {
-    return(
+
+
+
+    return (
         <div className="adminprofile_main">
             <div className="admin_profile">
                 <div className="admin_profile_summary">
                     <div className="profile_picture">
-                        <img src= {ProfilePic} alt="Avatar" />
+                        <img src={ProfilePic} alt="Avatar" />
                     </div>
                     <div className='name'>
                         <h1>John Doe</h1>

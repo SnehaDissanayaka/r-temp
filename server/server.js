@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 
 // routes
 import userRoutes from "./routes/userRoutes.js";
-import badgeRoutes from "./routes/badgeRoutes.js"
+// import badgeRoutes from "./routes/badgeRoutes.js"
 import postRoutes from "./routes/postRoutes.js"
 import interstRoutes from "./routes/interestRoutes.js"
 import likeRoutes from "./routes/likeRoutes.js"
@@ -17,6 +17,7 @@ import exploreRoutes from "./routes/exploreRoutes.js"
 import adsRoutes from "./routes/adsRoutes.js"
 import feedRoutes from "./routes/feedRoutes.js"
 import ReportsRoutes from "./routes/reportsRoutes.js";
+import adminbadgeRoutes from "./routes/adminbadgeRoutes.js";
 
 
 
@@ -42,11 +43,11 @@ app.use(cors({
     credentials: true // Allow credentials in the request
 }));
 
-// user routes
+// report routes
 app.use('/server/reports', ReportsRoutes);
 
-// badge routes
-app.use("/server/badges", badgeRoutes);
+// admin badge routes
+app.use("/server/adminbadges", adminbadgeRoutes);
 
 // post routes
 app.use("/server/posts", postRoutes);

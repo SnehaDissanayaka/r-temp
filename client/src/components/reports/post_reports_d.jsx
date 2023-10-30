@@ -1,19 +1,30 @@
 import './reports.scss';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import Icon from '@mui/material/Icon';
 
 function Post_Report_td() {
 
-    const PAGE_SIZE = 7; // Number of rows to display per page
+    const [selectPost, setSelectPost] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
+    const [displayedreportsData, setDisplayedData] = useState([]);
+    const PAGE_SIZE = 7; // Number of rows to display per page
 
-    const { data: reportsData, isLoading, isError } = useQuery(
-        ["reportsData"],
+    const handlepostClick = (report_id) => {
+        setSelectPost(report_id);
+    };
+
+    const handleBackToReports = () => {
+        setSelectPost(0);
+        // reload the data
+        refetch();
+    };
+
+    const { data: reportsData, isLoading, isError, refetch } = useQuery(
+        ["reportsData", currentPage],
         async () => {
-            const response = await makeRequest.get(`/reports/postReportsD`);
+            const response = await makeRequest.get(`/reports/postReportsD?page=${currentPage + 1}&pageSize=${PAGE_SIZE}`);
             return response.data;
         }
     );
@@ -22,16 +33,30 @@ function Post_Report_td() {
     const startIndex = currentPage * PAGE_SIZE;
     const endIndex = startIndex + PAGE_SIZE;
 
+    useEffect(() => {
+        if (reportsData) {
+            // Append the page data to the displayedData
+            setDisplayedData((prevData) => [...reportsData.slice(startIndex, endIndex)]);
+        }
+    }, [reportsData, startIndex, endIndex]);
+
     // Slice the data array to display only the current page's rows
-    const displayedData = reportsData ? reportsData.slice(startIndex, endIndex) : [];
+    // const displayedData = reportsData ? reportsData.slice(startIndex, endIndex) : [];
 
     const totalPages = Math.ceil((reportsData?.length || 0) / PAGE_SIZE);
+
+    const handleNextPageClick = () => {
+        if (currentPage < totalPages - 1) {
+            setCurrentPage((prevPage) => prevPage + 1);
+            // Clear displayedData when moving to the next page
+            setDisplayedData([]);
+        }
+    };
 
     return (
         <div className="t-div">
             <div className="t-div-topic">
                 <p>Post Reports - Completed</p>
-
             </div>
             <table>
                 <thead>
@@ -47,8 +72,8 @@ function Post_Report_td() {
                     </tr>
                 </thead>
                 <tbody>
-                    {reportsData && reportsData.map((row) => (
-                        <tr key={row.id}>
+                    {displayedreportsData.map((row) => (
+                        <tr key={row.reported_post_id}>
                             <td>{row.report_id}</td>
                             <td>{row.poster_name}</td>
                             <td>{row.reported_post_id}</td>
@@ -65,10 +90,7 @@ function Post_Report_td() {
                             <td>{row.remedy}</td>
                         </tr>
                     ))}
-
                 </tbody>
-
-
             </table>
 
             {/* Pagination Controls */}
@@ -81,7 +103,7 @@ function Post_Report_td() {
                 </button>
                 <span>Page {currentPage + 1} of {totalPages}</span>
                 <button
-                    onClick={() => setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages - 1))}
+                    onClick={handleNextPageClick}
                     disabled={currentPage === totalPages - 1 || isLoading}
                 >
                     {">"}

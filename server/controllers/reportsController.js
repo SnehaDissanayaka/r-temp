@@ -2,7 +2,7 @@ import AsyncHandler from "express-async-handler";
 import { getTodaypReports, getTodayuReports, getOngoingpReports, getOngoinguReports } from "../models/reportsModel.js";
 import { getuReportsND, getpReportsND, getuReportsD, getpReportsD } from "../models/reportsModel.js";
 import { getpReportDetails, getpDetails, getallprDetails, getallprCount } from "../models/reportsModel.js";
-import { updatearchivePost } from "../models/reportsModel.js";
+import { updatearchivePost, updateStatus } from "../models/reportsModel.js";
 
 const getTodayPReports = AsyncHandler(async (req, res) => {
     const preports = await getTodaypReports();
@@ -145,8 +145,21 @@ const archivePost = AsyncHandler(async (req, res) => {
 
     } else {
         res.status(404);
-        throw new Error("Users not found");
+        throw new Error("Post not found");
     }
 });
 
-export { getTodayPReports, getTodayUReports, getOngoingPReports, getOngoingUReports, getUserReportsND, getPostReportsND, getUserReportsD, getPostReportsD, getpostReportDetails, getPostDetails, getAllReports, getAllReportCount, archivePost };
+const updateReportStatus = AsyncHandler(async (req, res) => {
+    console.log("Marking Report Read with ID :", req.query.reportID);
+    const result = await updateStatus(req.query.reportID, req.query.updateTo);
+    if (result) {
+        res.status(200).json(result);
+        console.log("Archived post with ID:", req.query.reportID);
+    } else {
+        res.status(404);
+        throw new Error("Report not found");
+    }
+});
+
+
+export { getTodayPReports, getTodayUReports, getOngoingPReports, getOngoingUReports, getUserReportsND, getPostReportsND, getUserReportsD, getPostReportsD, getpostReportDetails, getPostDetails, getAllReports, getAllReportCount, archivePost, updateReportStatus };

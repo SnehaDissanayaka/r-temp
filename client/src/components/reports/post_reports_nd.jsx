@@ -16,6 +16,8 @@ function Post_Report_tnd() {
 
     const handleBackToReports = () => {
         setSelectPost(0);
+        // reload the data
+        refetch();
     };
 
     const { data: reportsDataPRND, isLoading, isError, refetch } = useQuery(
@@ -46,6 +48,8 @@ function Post_Report_tnd() {
             setDisplayedData([]);
         }
     };
+
+    console.log(reportsDataPRND);
 
     return (
         <div className={`t-div`}>
@@ -81,7 +85,7 @@ function Post_Report_tnd() {
                                     </td>
                                     <td>{row.content}</td>
                                     <td>
-                                        {row.report_status === "ongoing" ? (
+                                        {row.report_status !== "unread" ? (
                                             <Icon className="material-icons icon-custom-color">
                                                 drafts_rounded
                                             </Icon>

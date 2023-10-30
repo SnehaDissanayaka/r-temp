@@ -1,15 +1,17 @@
+import React, { useState, useEffect } from 'react'; // Import React if not already imported
 import './reports.scss';
-// import { useState } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import Line from './../../assets/images/Line1.png';
 import LineV from './../../assets/images/LineV.png';
 
 function Reported_post_view({ selectedPost, onBackToReports }) {
-
     const handleBackClick = () => {
-        onBackToReports(); // Call the provided function to go back to the table view
+        onBackToReports();
     };
+
+    const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
+    const [isUpdated, setIsUpdated] = useState(false);
 
     const archivePost = async (postID) => {
         console.log("Archiving post with ID:", postID);
@@ -23,17 +25,35 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
         }
     };
 
+    const updateReportStatus = async (Params) => {
+        setIsUpdatingStatus(true);
+        try {
+            setIsUpdatingStatus(false);
+            setIsUpdated(true);
+            PostreportData[0].report_status = 'ongoing';
+            const response = await makeRequest.post(`/reports/updateReportStatus?reportID=${Params.selectedPost}&updateTo=${Params.status}`);
+            if (Params.status === 'done') {
+                onBackToReports();
+            }
+            return response.data;
+        } catch (error) {
+            setIsUpdatingStatus(false);
+            console.error("Error archiving Post:", error);
+            throw error;
+        }
+    };
+    useEffect(() => {
 
+    }, [isUpdatingStatus]);
 
-    console.log("Component rendered with selectedPost:", selectedPost);
+    useEffect(() => {
+    }, [isUpdated]);
 
     const { data: PostreportData, isLoading, isError } = useQuery(
         ["PostreportData"],
         async () => {
-            console.log("useQuery callback started with selectedPost:", selectedPost);
             try {
                 const response = await makeRequest.get(`/reports/postReportDetails?selectedPost=${selectedPost}`);
-                console.log("Response data:", response.data);
                 return response.data;
             } catch (error) {
                 console.error("Error fetching PostreportData:", error);
@@ -42,11 +62,13 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
         }
     );
 
+    const obh = PostreportData && PostreportData[0];
+
 
     const { data: reportPostData, isLoadingPost, isErrorPost } = useQuery(
         ["reportsDatann"],
         async () => {
-            const response = await makeRequest.get(`/reports/postDetails?selectedPostID=${PostreportData[0].reported_post_id}`);
+            const response = await makeRequest.get(`/reports/postDetails?selectedPostID=${obh.post_id}`);
             return response.data;
         }
     );
@@ -54,7 +76,7 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
     const { data: AllreportsData, isLoadingPost1, isErrorPost1 } = useQuery(
         ["AllreportsData"],
         async () => {
-            const response = await makeRequest.get(`/reports/allReports?selectedPostID=${PostreportData[0].reported_post_id}`);
+            const response = await makeRequest.get(`/reports/allReports?selectedPostID=${obh.post_id}`);
             return response.data;
         }
     );
@@ -62,53 +84,65 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
     const { data: AllreportsCount, isLoadingPost2, isErrorPost2 } = useQuery(
         ["AllreportsCount"],
         async () => {
-            const response = await makeRequest.get(`/reports/allReportCount?selectedPostID=${PostreportData[0].reported_post_id}`);
+            const response = await makeRequest.get(`/reports/allReportCount?selectedPostID=${obh.post_id}`);
             return response.data;
         }
     );
 
-    // console.log(AllreportsCount[0]);
-
+    // Check if any data is still loading
+    if (isLoading || isLoadingPost || isLoadingPost1 || isLoadingPost2) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className='r_post_view'>
-            <div class="report_title">
-                <h2>Post Report - Report ID : {selectedPost}</h2>
-                {/* curved back icon */}
+            <div className="report_title">
+                <div>
+                    <h2>Post Report - Report ID : {selectedPost}</h2>
+                    <p>{PostreportData ? (PostreportData[0].report_status === 'unread' ? "Unread Report" : "Ongoing Report") : "Loading..."}</p>
+                </div>
                 <button onClick={handleBackClick}>Back to Reports</button>
-
             </div>
             <img src={Line} alt="line" className='line' />
-            <div class="report_body">
+            <div className="report_body">
                 <div className='content'>
-                    <h4>
-                        Post ID : {PostreportData ? PostreportData[0].reported_post_id : "Loading..."}
-                        <br />
-                        <span>Post Status : {PostreportData ? (PostreportData[0].archived == true ? "Post Removed" : "Currently Displaying") : "Loading..."}</span>
-                    </h4>
-                    <br />
+                    <h4>Report Details</h4>
                     <p>
-                        Posted By : {PostreportData ? PostreportData[0].firstname : "Loading..."} {PostreportData ? PostreportData[0].lastname : "Loading..."}
+                        <span>Reported On :</span> {PostreportData ? PostreportData[0].reported_date : "Loading..."}
                     </p>
-                    <br />
                     <p>
-                        Posted On : {PostreportData ? PostreportData[0].created_at : "Loading..."}
+                        <span>Report Type :</span> {PostreportData ? PostreportData[0].type : "Loading..."}
                     </p>
-                    <br />
+                    <p>
+                        <span>Severity :</span> {PostreportData ? PostreportData[0].severity : "Loading..."}
+                    </p>
+                    <p>
+                        <span>Remarks :</span> {PostreportData ? PostreportData[0].content : "Loading..."}
+                    </p>
+                    <h4>Post Details</h4>
+                    <p>
+                        <span>Post ID :</span> {PostreportData ? PostreportData[0].post_id : "Loading..."}</p>
+                    <p>
+                        <span>Post Status :</span> {PostreportData ? (PostreportData[0].archived == true ? "Post Archived" : "Currently Displaying") : "Loading..."}
+                    </p>
+                    <p>
+                        <span>Poster User ID :</span> {PostreportData ? PostreportData[0].user_id : "Loading..."}
+                    </p>
+                    <p>
+                        <span>Posted By :</span> {PostreportData ? PostreportData[0].firstname : "Loading..."} {PostreportData ? PostreportData[0].lastname : "Loading..."}
+                    </p>
+                    <p>
+                        <span>Posted On : </span>{PostreportData ? PostreportData[0].created_at : "Loading..."}
+                    </p>
                     <p className="post-content">
-                        Post Text :
+                        <span>Post Text :</span>
                         <textarea disabled>{PostreportData ? PostreportData[0].content : "Loading..."}</textarea>
                     </p>
-                    <br />
 
-                    <p>Post Image <span className="material-icons"> visibility</span> </p>
-                    <br />
+                    <p><span>Post Image</span> <span className="material-icons"> visibility</span> </p>
                     <p>Image Here</p>
-                    <br />
-                    <p>Likes : {reportPostData ? reportPostData[0].like_count : "Loading..."}</p>
-                    <br />
-                    <p>Comments : {reportPostData ? reportPostData[0].comment_count : "Loading..."}</p>
-
+                    <p><span>Likes : </span>{reportPostData ? reportPostData[0].like_count : "Loading..."}</p>
+                    <p><span>Comments : </span>{reportPostData ? reportPostData[0].comment_count : "Loading..."}</p>
                 </div>
                 <img src={LineV} alt="line" className='lineV' />
                 <div className='all-reports'>
@@ -124,7 +158,6 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* MAP  AllreportsData */}
                             {AllreportsData && AllreportsData.map((row) => (
                                 <tr key={row.id}>
                                     <td>{row.report_id}</td>
@@ -133,7 +166,7 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
                                         {row.severity === 1 ? "High" : row.severity === 2 ? "Medium" : "Low"}
                                     </td>
                                     <td>
-                                        <span class="material-icons">
+                                        <span className="material-icons">
                                             visibility
                                         </span>
                                     </td>
@@ -144,16 +177,19 @@ function Reported_post_view({ selectedPost, onBackToReports }) {
                 </div>
             </div>
             <img src={Line} alt="line" className='line' />
-
             <div className='buttons'>
-                <button onClick={() => archivePost(PostreportData[0].reported_post_id)}>Remove Post</button>
 
-                {/* <button onClick={archivePost(PostreportData[0].reported_post_id)} >Remove Post</button> */}
-                <button>Mark As Ongoing</button>
-                <button>Mark As Done</button>
+                {/* Archive Button */}
+                {PostreportData ? (PostreportData[0].archived === true ? "" : <button onClick={() => archivePost(PostreportData[0].reported_post_id)}>Remove Post</button>) : "Loading..."}
+                {/* Update Status Button */}
+                {!isUpdatingStatus && PostreportData ? (PostreportData[0].report_status === 'unread' ? <button onClick={() => updateReportStatus({ selectedPost, status: "ongoing" })} disabled={isUpdatingStatus}>Mark As Ongoing</button> : "") :
+                    (isUpdated && isUpdatingStatus ? "Updated Successfully" : (<button disabled={isUpdatingStatus} style={isUpdatingStatus ? { backgroundColor: 'gray', cursor: 'not-allowed' } : {}}>Updating As Ongoing</button>))}
+
+                {/* Mark as Read Button */}
+                <button onClick={() => updateReportStatus({ selectedPost, status: "done" })} disabled={isUpdatingStatus}>Mark As Done</button>
             </div>
         </div>
-    )
+    );
 }
 
 export default Reported_post_view;

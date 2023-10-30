@@ -32,8 +32,9 @@ const getuReportsND = asyncHandler(async () => {
 });
 
 const getpReportsND = asyncHandler(async () => {
-    const sql = "SELECT CONCAT(users.firstname, ' ', users.lastname) AS poster_name, report_types.type, report_types.severity, report.content, report.remedy, report.reported_post_id, report.report_id FROM report INNER JOIN post ON report.reported_post_id = post.post_id INNER JOIN users ON users.user_id = post.user_id INNER JOIN report_types ON report.report_type_id = report_types.report_type_id WHERE report.reported_post_id IS NOT NULL AND report.report_status != 'done'; ";
+    const sql = "SELECT CONCAT(users.firstname, ' ', users.lastname) AS poster_name, report_types.type, report_types.severity, report.content, report.report_status, report.reported_post_id, report.report_id FROM report INNER JOIN post ON report.reported_post_id = post.post_id INNER JOIN users ON users.user_id = post.user_id INNER JOIN report_types ON report.report_type_id = report_types.report_type_id WHERE report.reported_post_id IS NOT NULL AND report.report_status != 'done'; ";
     const result = await query(sql);
+    console.log(result.rows);
     return result.rows;
 });
 
@@ -44,32 +45,35 @@ const getuReportsD = asyncHandler(async () => {
 });
 
 const getpReportsD = asyncHandler(async () => {
-    const sql = "SELECT CONCAT(users.firstname, ' ', users.lastname) AS poster_name, report_types.type, report_types.severity, report.content, report.remedy, report.reported_post_id FROM report INNER JOIN post ON report.reported_post_id = post.post_id INNER JOIN users ON users.user_id = post.user_id INNER JOIN report_types ON report.report_type_id = report_types.report_type_id WHERE report.reported_post_id IS NOT NULL AND report.report_status = 'done'; ";
+    const sql = "SELECT CONCAT(users.firstname, ' ', users.lastname) AS poster_name, report_types.type, report_types.severity, report.content, report.remedy, report.reported_post_id, report.report_id FROM report INNER JOIN post ON report.reported_post_id = post.post_id INNER JOIN users ON users.user_id = post.user_id INNER JOIN report_types ON report.report_type_id = report_types.report_type_id WHERE report.reported_post_id IS NOT NULL AND report.report_status = 'done'; ";
     const result = await query(sql);
     return result.rows;
 });
 
 const getpReportDetails = asyncHandler(async (selectedPost) => {
-    const sql = "SELECT report.*, post.*, users.* FROM report INNER JOIN post ON report.reported_post_id = post.post_id INNER JOIN users ON post.user_id = users.user_id WHERE report.report_id = $1";
+    const sql = "SELECT report.date AS reported_date,report.report_id, report.reported_user_id, report.content, report.report_status, report_types.type, report_types.severity, post.*, users.* FROM report INNER JOIN post ON report.reported_post_id = post.post_id INNER JOIN users ON post.user_id = users.user_id INNER JOIN report_types ON report.report_type_id = report_types.report_type_id WHERE report.report_id = $1";
     const result = await query(sql, [selectedPost]);
     return result.rows;
 });
 
 const getpDetails = asyncHandler(async (selectedPostID) => {
+    const postIdAsBigInt = BigInt(selectedPostID);
     const sql = "SELECT COUNT(likes.*) AS like_count, COUNT(comment.*) AS comment_count FROM post INNER JOIN likes ON post.post_id = likes.post_id INNER JOIN comment ON post.post_id = comment.post_id WHERE post.post_id = $1";
-    const result = await query(sql, [selectedPostID]);
+    const result = await query(sql, [postIdAsBigInt]);
     return result.rows;
 });
 
 const getallprDetails = asyncHandler(async (selectedPostID) => {
+    const postIdAsBigInt = BigInt(selectedPostID);
     const sql = "SELECT report.*,report_types.* FROM report INNER JOIN report_types ON report.report_type_id = report_types.report_type_id  WHERE reported_post_id = $1";
-    const result = await query(sql, [selectedPostID]);
+    const result = await query(sql, [postIdAsBigInt]);
     return result.rows;
 });
 
 const getallprCount = asyncHandler(async (selectedPostID) => {
+    const postIdAsBigInt = BigInt(selectedPostID);
     const sql = "SELECT COUNT(report.*) AS report_count FROM report WHERE reported_post_id = $1";
-    const result = await query(sql, [selectedPostID]);
+    const result = await query(sql, [postIdAsBigInt]);
     return result.rows;
 });
 
@@ -80,4 +84,11 @@ const updatearchivePost = asyncHandler(async (postID) => {
     return true;
 });
 
-export { getTodaypReports, getTodayuReports, getOngoingpReports, getOngoinguReports, getuReportsND, getpReportsND, getuReportsD, getpReportsD, getpReportDetails, getpDetails, getallprDetails, getallprCount, updatearchivePost };
+const updateStatus = asyncHandler(async (reportID, updateTo) => {
+    console.log("Shall update report status with ID:", reportID);
+    const sql = "UPDATE report SET report_status = $1 WHERE report_id = $2";
+    const result = await query(sql, [updateTo, reportID]);
+    return true;
+});
+
+export { getTodaypReports, getTodayuReports, getOngoingpReports, getOngoinguReports, getuReportsND, getpReportsND, getuReportsD, getpReportsD, getpReportDetails, getpDetails, getallprDetails, getallprCount, updatearchivePost, updateStatus };
