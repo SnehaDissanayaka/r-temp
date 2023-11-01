@@ -169,9 +169,9 @@ const Trip = () => {
                         <button className="cancel" onClick={handleCancelNewType}>Cancel</button>
                     </div>
                 )}
-                {displayOption === 1 && (
-                    <AddPlace setDisplayOption={setDisplayOption} />
-                )}
+                {/*{displayOption === 1 && (
+                    // <AddPlace setDisplayOption={setDisplayOption} />
+                )}*/}
                 <div className="rowb">
                     <table>
                         <thead>
@@ -196,9 +196,9 @@ const Trip = () => {
                                         )}
                                     </td>
                                     <td style={{ width: '200px' }}>
-                                        <span className="material-icons" onClick={() => handleViewplacesClick(row.type_id)}>
+                                        {/* <span className="material-icons" onClick={() => handleViewplacesClick(row.type_id)}>
                                             visibility
-                                        </span>
+                                        </span> */}
                                     </td>
                                     <td>
                                         {editTripType === row.type_id ? (
