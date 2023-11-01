@@ -83,7 +83,10 @@ function Profile() {
         },
         {
             onSuccess: () => {
-                setTriggerRefetch(true);
+                // setTriggerRefetch(true);
+                // updateUser({ ...currentUser, ...editedInfo });
+                const newCurrentUser = { ...currentUser, profile_pic: newCP }; // Assuming 'newCP' is the updated profile picture
+                updateUser(newCurrentUser);
             },
         }
     );
@@ -93,7 +96,7 @@ function Profile() {
         let imgUrl = "";
         if (file) imgUrl = await upload();
         mutation.mutate({ user_id, img: imgUrl });
-        setOpenUpdateCP(false);
+        // setOpenUpdateCP(false);
         setFile(null);
     };
 
