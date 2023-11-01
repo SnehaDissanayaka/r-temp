@@ -49,7 +49,7 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_traveler_table">
-                    <TravelerTable />
+                    <HotelTable />
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_traveler_table">
-                    <TaxiTable />
+                    <TravelerTable />
                 </div>
             </div>
         </div>
@@ -104,7 +104,7 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_traveler_table">
-                    <HotelTable />
+                    <TaxiTable />
                 </div>
             </div>
             <div className="user_two">
@@ -119,7 +119,7 @@ function UserDetails() {
                             </span>
                         </div>
                         <div className="botton_box">
-                            <Link to='/addadmin'>
+                            <Link to='/addservice'>
                                 <span class="material-icons">
                                     add_circle
                                 </span>

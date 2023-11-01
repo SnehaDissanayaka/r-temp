@@ -69,24 +69,24 @@ function Dashboard() {
                     <div className="stat-item">
                         <div className="stat-item-title">Advertisement Requests Today</div>
                         <div className="stat-item-value">
-                            {userTravellerC && (
-                                <span>{userTravellerC[0]?.count}</span>
+                            {adsAS && (
+                                <span>{adsAS[0]?.count}</span>
                             )}
                         </div>
                     </div>
                     <div className="stat-item">
                         <div className="stat-item-title">Reports Added Today</div>
                         <div className="stat-item-value">
-                            {userTaxiC && (
-                                <span>{userTaxiC[0]?.count}</span>
+                            {reportsTR && (
+                                <span>{reportsTR[0]?.count}</span>
                             )}
                         </div>
                     </div>
                     <div className="stat-item">
                         <div className="stat-item-title">Posts Added Today</div>
                         <div className="stat-item-value">
-                            {userGuideC && (
-                                <span>{userGuideC[0]?.count}</span>
+                            {postsTP && (
+                                <span>{postsTP[0]?.count}</span>
                             )}
                         </div>
                     </div>
@@ -96,36 +96,44 @@ function Dashboard() {
                 <div className="daily-chart">
                     <h3>New User Registrations</h3>
                     <div className="newusers">
-                        <div className="us">
-                            <h4>Travellers</h4>
-                            <div className="us_count">
-                                {userServiceC && (
-                                    <span>{userServiceC[0]?.count}</span>
-                                )}
+                        <div className="newuser-item">
+                            <div className="us">
+                                <h4>Travellers</h4>
+                                <div className="us_count">
+                                    {userTravellerC && (
+                                        <span>{userTravellerC[0]?.count}</span>
+                                    )}
+                                    <span>2</span>
+                                </div>
+                            </div>
+                            <div className="us">
+                                <h4>Taxis</h4>
+                                <div className="us_count">
+                                    {userTaxiC && (
+                                        <span>{userTaxiC[0]?.count}</span>
+                                    )}
+                                    <span>2</span>
+                                </div>
                             </div>
                         </div>
-                        <div className="us">
-                            <h4>Taxis</h4>
-                            <div className="us_count">
-                                {postsTP && (
-                                    <span>{postsTP[0]?.count}</span>
-                                )}
+                        <div className="newuser-item">
+                            <div className="us">
+                                <h4>Guides</h4>
+                                <div className="us_count">
+                                    {userGuideC && (
+                                        <span>{userGuideC[0]?.count}</span>
+                                    )}
+                                    <span>2</span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="us">
-                            <h4>Guides</h4>
-                            <div className="us_count">
-                                {postsTP && (
-                                    <span>{postsTP[0]?.count}</span>
-                                )}
-                            </div>
-                        </div>
-                        <div className="us">
-                            <h4>Services</h4>
-                            <div className="us_count">
-                                {postsTP && (
-                                    <span>{postsTP[0]?.count}</span>
-                                )}
+                            <div className="us">
+                                <h4>Services</h4>
+                                <div className="us_count">
+                                    {userServiceC && (
+                                        <span>{userServiceC[0]?.count}</span>
+                                    )}
+                                    <span>2</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -133,6 +141,9 @@ function Dashboard() {
                 <div className="top-content-creators">
                     <h3>Top Content Creators</h3>
                     <div className="creators">
+                        <ContentCreators />
+                        <ContentCreators />
+                        <ContentCreators />
                         <ContentCreators />
                     </div>
                 </div>

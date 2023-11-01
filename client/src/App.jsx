@@ -18,6 +18,7 @@ import AdminPanel from './pages/adminPanel/adminPanel';
 import Users from './pages/users/users';
 import UserProfile from './pages/userProfile/userProfile';
 import AddAdmin from './pages/addAdmin/addAdmin';
+import AddService from './pages/addService/addService';
 import AdvertisementsPage from './pages/AdvertisementsPage/advertisementsPage';
 import ReportsPage from './pages/reportsPage/reportsPage';
 import PlacesPage from './pages/placesPage/placesPage';
@@ -271,6 +272,14 @@ function App() {
                     element: (
                         <ProtectedRoute>
                             <AddAdmin />
+                        </ProtectedRoute>
+                    ),
+                },
+                {
+                    path: "/addservice",
+                    element: (
+                        <ProtectedRoute>
+                            <AddService />
                         </ProtectedRoute>
                     ),
                 },
