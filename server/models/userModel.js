@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 
 // find user is exists by email
 const isUserExists = asyncHandler(async (email) => {
-    const sql = 'SELECT * FROM users WHERE email = $1';
+    const sql = 'SELECT * FROM admin_user WHERE email = $1';
     const result = await query(sql, [email]);
 
     return result.rowCount > 0;
@@ -12,7 +12,7 @@ const isUserExists = asyncHandler(async (email) => {
 
 // find user is verified by email
 const isUserVerified = asyncHandler(async (email) => {
-    const sql = 'SELECT * FROM users WHERE isverified = true AND email = $1';
+    const sql = 'SELECT * FROM admin_user WHERE email = $1';
     const result = await query(sql, [email]);
 
     return result.rowCount > 0;
@@ -20,7 +20,7 @@ const isUserVerified = asyncHandler(async (email) => {
 
 // find user is exists by user id
 const isUserExistsByID = asyncHandler(async (id) => {
-    const sql = 'SELECT * FROM users WHERE user_id = $1';
+    const sql = 'SELECT * FROM admin_user WHERE admin_id = $1';
     const result = await query(sql, [id]);
 
     return result.rowCount > 0;
@@ -28,7 +28,7 @@ const isUserExistsByID = asyncHandler(async (id) => {
 
 // find user by email
 const findUserByEmail = asyncHandler(async (email) => {
-    const sql = 'SELECT * FROM users WHERE email = $1';
+    const sql = 'SELECT * FROM admin_user WHERE email = $1';
     const result = await query(sql, [email]);
 
     return result.rows[0];
@@ -36,7 +36,7 @@ const findUserByEmail = asyncHandler(async (email) => {
 
 // find user by ID
 const findUserByID = asyncHandler(async (id) => {
-    const sql = 'SELECT user_id, firstname, lastname, email, contact_no, user_type, isverified, profile_pic, cover_pic FROM users WHERE user_id = $1';
+    const sql = 'SELECT admin_id, firstname, lastname, email, contact_no,  admin_img, gender FROM admin_user WHERE admin_id = $1';
     const result = await query(sql, [id]);
 
     return result.rows[0];
@@ -44,12 +44,12 @@ const findUserByID = asyncHandler(async (id) => {
 
 // authenticate user
 const authUser = asyncHandler(async (email, password) => {
-    const sql = 'SELECT * FROM users WHERE email = $1';
+    const sql = 'SELECT * FROM admin_user WHERE email = $1';
     const result = await query(sql, [email]);
 
     if (result.rowCount > 0) {
         const user = result.rows[0];
-        const isMatch = await bcrypt.compare(password, user.password_hash);
+        const isMatch = await bcrypt.compare(password, user.password);
         if (isMatch) {
             return user;
         } else {
@@ -80,6 +80,61 @@ const registerUsers = asyncHandler(async (firstname, lastname, email, password) 
     return result;
 });
 
+// const updateAdminProfile = asyncHandler(async (userID, field, newValue) => {
+//     // Construct a dynamic SQL query to update the specified field for the user
+//     const sql = `UPDATE admin_user SET ${field} = $1 WHERE admin_id = $2 RETURNING *`;
+//     console.log(sql);
+//     // Execute the SQL query with the new value and user ID
+//     const result = await query(sql, [newValue, userID]);
+
+//     if (result.rowCount > 0) {
+//         return result.rows[0]; // Return the updated user profile
+//     } else {
+//         return null; // No user was updated, handle accordingly in the controller
+//     }
+// });
+
+// const updateAdminProfile = asyncHandler(async (userID, field, newValue) => {
+//     // Ensure that field is a valid column name in the admin_user table (you should validate this)
+
+//     // Construct a dynamic SQL query to update the specified field for the user
+//     const sql = `UPDATE admin_user SET ${field} = $1 WHERE admin_id = $2 RETURNING *`;
+//     console.log(sql);
+
+//     // Execute the SQL query with the new value and user ID
+//     const result = await query(sql, [newValue, userID]);
+
+//     if (result.rowCount > 0) {
+//         return result.rows[0]; // Return the updated user profile
+//     } else {
+//         return null; // No user was updated, handle accordingly in the controller
+//     }
+// });
+
+const updateAdminProfile = async (userID, updatedInfo) => {
+    // Construct a dynamic SQL query to update the user's profile
+    const sql = `UPDATE admin_user SET 
+                firstname = $1,
+                lastname = $2,
+                
+                contact_no = $3,
+                gender = $4
+                WHERE admin_id = $5
+                RETURNING *`;
+
+    const { firstname, lastname, contact_no, gender } = updatedInfo;
+
+    // Execute the SQL query with the updated user information and user ID
+    const result = await query(sql, [firstname, lastname, contact_no, gender, userID]);
+
+    if (result.rowCount > 0) {
+        return result.rows[0]; // Return the updated user profile
+    } else {
+        return null; // No user was updated, handle accordingly in the controller
+    }
+};
+
+
 export {
     isUserExists,
     registerUsers,
@@ -87,4 +142,5 @@ export {
     findUserByEmail,
     findUserByID,
     isUserVerified,
+    updateAdminProfile
 };

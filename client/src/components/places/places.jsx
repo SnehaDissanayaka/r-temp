@@ -1,16 +1,13 @@
 import './places.scss';
 import Trip from '../trip/trip';
+import Destination from '../trip/destination'
 
 function Places() {
-    return(
+    return (
         <div className="place_main">
-            <div className="places">
-                <h1>Places</h1>
-                <div className="trips">
-                    <Trip />
-                </div>
-            </div>
+            <Trip />
         </div>
+
     );
 }
 

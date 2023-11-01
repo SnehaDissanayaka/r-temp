@@ -2,9 +2,11 @@ import './reports.scss';
 import React, { useState, useEffect } from 'react';
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import Reported_post_done_view from './view_post_done';
+
 import Icon from '@mui/material/Icon';
 
-function Post_Report_td() {
+function Post_Report_td({ postImageDisplayed, setpostImageDisplayed }) {
 
     const [selectPost, setSelectPost] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
@@ -55,62 +57,66 @@ function Post_Report_td() {
 
     return (
         <div className="t-div">
-            <div className="t-div-topic">
-                <p>Post Reports - Completed</p>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Report ID</th>
-                        <th>Poster</th>
-                        <th>Post ID</th>
-                        <th>Report Type</th>
-                        <th>Severity</th>
-                        <th>Remarks</th>
-                        <th>View Reported Post</th>
-                        <th>Remedy</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {displayedreportsData.map((row) => (
-                        <tr key={row.reported_post_id}>
-                            <td>{row.report_id}</td>
-                            <td>{row.poster_name}</td>
-                            <td>{row.reported_post_id}</td>
-                            <td>{row.type}</td>
-                            <td>
-                                {row.severity === 1 ? "High" : row.severity === 2 ? "Medium" : "Low"}
-                            </td>
-                            <td>{row.content}</td>
-                            <td>
-                                <span class="material-icons">
-                                    visibility
-                                </span>
-                            </td>
-                            <td>{row.remedy}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {selectPost !== 0 ? (
+                <Reported_post_done_view selectedPost={selectPost} onBackToReports={handleBackToReports} postImageDisplayed={postImageDisplayed} setpostImageDisplayed={setpostImageDisplayed} />
+            ) : (
+                <div><div className="t-div-topic">
+                    <p>Post Reports - Completed</p>
+                </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Report ID</th>
+                                <th>Poster</th>
+                                <th>Post ID</th>
+                                <th>Report Type</th>
+                                <th>Severity</th>
+                                <th>Remarks</th>
+                                <th>View Reported Post</th>
+                                <th>Remedy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {displayedreportsData.map((row) => (
+                                <tr key={row.reported_post_id}>
+                                    <td>{row.report_id}</td>
+                                    <td>{row.poster_name}</td>
+                                    <td>{row.reported_post_id}</td>
+                                    <td>{row.type}</td>
+                                    <td>
+                                        {row.severity === 1 ? "High" : row.severity === 2 ? "Medium" : "Low"}
+                                    </td>
+                                    <td>{row.content}</td>
+                                    <td>
+                                        <span class="material-icons" onClick={() => handlepostClick(row.report_id)}>
+                                            visibility
+                                        </span>
+                                    </td>
+                                    <td>{row.remedy}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
 
-            {/* Pagination Controls */}
-            <div className="pagination">
-                <button
-                    onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 0))}
-                    disabled={currentPage === 0}
-                >
-                    {"<"}
-                </button>
-                <span>Page {currentPage + 1} of {totalPages}</span>
-                <button
-                    onClick={handleNextPageClick}
-                    disabled={currentPage === totalPages - 1 || isLoading}
-                >
-                    {">"}
-                </button>
-            </div>
+                    <div className="pagination">
+                        <button
+                            onClick={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 0))}
+                            disabled={currentPage === 0}
+                        >
+                            {"<"}
+                        </button>
+                        <span>Page {currentPage + 1} of {totalPages}</span>
+                        <button
+                            onClick={handleNextPageClick}
+                            disabled={currentPage === totalPages - 1 || isLoading}
+                        >
+                            {">"}
+                        </button>
+                    </div>
+                </div>
+            )}
 
-            {/* )} */}
+            {/* // {/* )}  */}
         </div>
     )
 }

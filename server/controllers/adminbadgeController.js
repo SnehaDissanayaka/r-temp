@@ -19,17 +19,6 @@ const allBadges = asyncHandler(async (req, res) => {
 
 
 const addBadge = asyncHandler(async (req, res) => {
-    // const { email, password } = req.body;
-    // console.log(req.body);
-
-    // const badge = await addNewBadge(req.body);
-
-    // if (badge.rowCount > 0) {
-    //     res.status(200).json(badge);
-    // } else {
-    //     res.status(404);
-    //     throw new Error("Badge Not Added");
-    // }
     try {
         // Logging: Log the request body to inspect the data being received.
         console.log('Request Body:', req.body);

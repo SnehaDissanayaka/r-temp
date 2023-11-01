@@ -6,6 +6,7 @@ import {
     authUser,
     findUserByID,
     isUserVerified,
+    updateAdminProfile
 } from "../models/userModel.js";
 
 // desc    Login user
@@ -31,11 +32,12 @@ const loginUser = asyncHandler(async (req, res) => {
         res.status(201).json({
             firstname: user.firstname,
             lastname: user.lastname,
-            user_id: user.user_id,
+            user_id: user.admin_id,
             email: user.email,
             contact_no: user.contact_no,
-            profile_pic: user.profile_pic,
-            cover_pic: user.cover_pic,
+            profile_pic: user.admin_img,
+            gender: user.gender,
+
         });
     } else {
         res.status(400).json("Invalid Email or Password");
@@ -97,15 +99,15 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
 
     if (user) {
         res.status(201).json({
-            user_id: user.user_id,
+            user_id: user.admin_id,
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
             contact_no: user.contact_no,
-            user_type: user.user_type,
-            isverified: user.isverified,
-            profile_pic: user.profile_pic,
-            cover_pic: user.cover_pic,
+            // user_type: user.user_type,
+            // isverified: user.isverified,
+            profile_pic: user.admin_img,
+            gender: user.gender,
         });
     } else {
         res.status(404);
@@ -122,15 +124,15 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
     if (user) {
         res.status(201).json({
-            user_id: user.user_id,
+            user_id: user.admin_id,
             firstname: user.firstname,
             lastname: user.lastname,
             email: user.email,
             contact_no: user.contact_no,
-            user_type: user.user_type,
-            isverified: user.isverified,
-            profile_pic: user.profile_pic,
-            cover_pic: user.cover_pic,
+            // user_type: user.user_type,
+            // isverified: user.isverified,
+            profile_pic: user.admin_img,
+            gender: user.gender,
         });
     } else {
         res.status(404);
@@ -147,6 +149,58 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     res.status(200).json({ message: "Update user profile" });
 });
 
+// const updateAdmin = asyncHandler(async (req, res) => {
+//     const { userID } = req.query;
+//     const { editedField, editedInfo } = req.body;
+
+//     // You can add validation and update logic here
+//     // For example, call a function from your model to update the user's profile
+
+//     const updatedUser = await updateAdminProfile(userID, editedField, editedInfo);
+
+//     if (updatedUser) {
+//         res.status(200).json(updatedUser);
+//     } else {
+//         res.status(400).json({ message: "Failed to update user profile" });
+//     }
+// });
+
+// const updateAdmin = asyncHandler(async (req, res) => {
+//     const { userID } = req.query;
+//     const { editedField, editedInfo } = req.body;
+
+//     const updatedUser = await updateAdminProfile(userID, editedField, editedInfo[editedField]); // Pass editedInfo[editedField] instead of just editedInfo
+//     console.log(editedInfo[editedField]);
+//     if (updatedUser) {
+//         console.log(updatedUser);
+//         res.status(200).json(updatedUser);
+//     } else {
+//         res.status(400).json({ message: "Failed to update user profile" });
+//     }
+// });
+
+const updateAdmin = asyncHandler(async (req, res) => {
+    const { userID } = req.query;
+    const updatedInfo = req.body;
+
+    // You can add validation and update logic here
+    // For example, call a function from your model to update the user's profile
+    try {
+        const updatedUser = await updateAdminProfile(userID, updatedInfo);
+
+        if (updatedUser) {
+            res.status(200).json(updatedUser);
+        } else {
+            res.status(400).json({ message: "Failed to update user profile" });
+        }
+    } catch (error) {
+        console.error("Error updating user information:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
+
 export {
     registerUser,
     loginUser,
@@ -154,4 +208,5 @@ export {
     getCurrentUserProfile,
     getUserProfile,
     updateUserProfile,
+    updateAdmin,
 };

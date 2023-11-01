@@ -18,6 +18,7 @@ import adsRoutes from "./routes/adsRoutes.js"
 import feedRoutes from "./routes/feedRoutes.js"
 import ReportsRoutes from "./routes/reportsRoutes.js";
 import adminbadgeRoutes from "./routes/adminbadgeRoutes.js";
+import tripsRoutes from "./routes/tripsRoutes.js";
 
 
 
@@ -49,7 +50,7 @@ app.use('/server/reports', ReportsRoutes);
 // admin badge routes
 app.use("/server/adminbadges", adminbadgeRoutes);
 
-// post routes
+// post routes  
 app.use("/server/posts", postRoutes);
 
 // interest routes
@@ -69,6 +70,9 @@ app.use("/server/feed", feedRoutes);
 
 // user routes
 app.use("/server/users", userRoutes);
+
+// trip routes
+app.use("/server/trips", tripsRoutes);
 
 
 app.get('/', (req, res) => res.send('Server is ready'));

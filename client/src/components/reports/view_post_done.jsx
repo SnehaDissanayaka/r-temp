@@ -5,7 +5,7 @@ import { makeRequest } from "../../axios";
 import Line from './../../assets/images/Line1.png';
 import LineV from './../../assets/images/LineV.png';
 
-function Reported_post_view({ selectedPost, onBackToReports, postImageDisplayed, setpostImageDisplayed }) {
+function Reported_post_done_view({ selectedPost, onBackToReports, postImageDisplayed, setpostImageDisplayed }) {
     const handleBackClick = () => {
         onBackToReports();
     };
@@ -17,44 +17,44 @@ function Reported_post_view({ selectedPost, onBackToReports, postImageDisplayed,
 
 
     const viewImage = (image) => {
-        console.log("Image:", image);
+        // console.log("Image:", image);
         // setpostImageDisplayed(!postImageDisplayed);
         // postImageDisplayed ? setpostImageDisplayed(false) : setpostImageDisplayed(true);
         // postImageDisplayed(image);
         setpostImageDisplayed(image);
-        console.log("Image from postimagedisplayed:", postImageDisplayed);
+        // console.log("Image from postimagedisplayed:", postImageDisplayed);
     }
 
-    const archivePost = async (postID) => {
-        console.log("Archiving post with ID:", postID);
-        try {
-            const response = await makeRequest.post(`/reports/archivePost?postID=${postID}`);
-            console.log("Response data:", response.data);
-            return response.data;
-        } catch (error) {
-            console.error("Error archiving Post:", error);
-            throw error;
-        }
-    };
+    // const archivePost = async (postID) => {
+    //     console.log("Archiving post with ID:", postID);
+    //     try {
+    //         const response = await makeRequest.post(`/reports/archivePost?postID=${postID}`);
+    //         console.log("Response data:", response.data);
+    //         return response.data;
+    //     } catch (error) {
+    //         console.error("Error archiving Post:", error);
+    //         throw error;
+    //     }
+    // };
 
 
-    const updateReportStatus = async (Params) => {
-        setIsUpdatingStatus(true);
-        try {
-            setIsUpdatingStatus(false);
-            setIsUpdated(true);
-            PostreportData[0].report_status = 'ongoing';
-            const response = await makeRequest.post(`/reports/updateReportStatus?reportID=${Params.selectedPost}&updateTo=${Params.status}`);
-            if (Params.status === 'done') {
-                onBackToReports();
-            }
-            return response.data;
-        } catch (error) {
-            setIsUpdatingStatus(false);
-            console.error("Error archiving Post:", error);
-            throw error;
-        }
-    };
+    // const updateReportStatus = async (Params) => {
+    //     setIsUpdatingStatus(true);
+    //     try {
+    //         setIsUpdatingStatus(false);
+    //         setIsUpdated(true);
+    //         PostreportData[0].report_status = 'ongoing';
+    //         const response = await makeRequest.post(`/reports/updateReportStatus?reportID=${Params.selectedPost}&updateTo=${Params.status}`);
+    //         if (Params.status === 'done') {
+    //             onBackToReports();
+    //         }
+    //         return response.data;
+    //     } catch (error) {
+    //         setIsUpdatingStatus(false);
+    //         console.error("Error archiving Post:", error);
+    //         throw error;
+    //     }
+    // };
 
 
 
@@ -117,7 +117,7 @@ function Reported_post_view({ selectedPost, onBackToReports, postImageDisplayed,
             <div className="report_title">
                 <div>
                     <h2>Post Report - Report ID : {selectedPost}</h2>
-                    <p>{PostreportData ? (PostreportData[0].report_status === 'unread' ? "Unread Report" : "Ongoing Report") : "Loading..."}</p>
+                    {/* <p>{PostreportData ? (PostreportData[0].report_status === 'unread' ? "Unread Report" : "Ongoing Report") : "Loading..."}</p> */}
                 </div>
                 <button onClick={handleBackClick}>Back to Reports</button>
             </div>
@@ -194,20 +194,17 @@ function Reported_post_view({ selectedPost, onBackToReports, postImageDisplayed,
                     </table>
                 </div>
             </div>
-            <img src={Line} alt="line" className='line' />
-            <div className='buttons'>
+            {/* <img src={Line} alt="line" className='line' /> */}
+            {/* <div className='buttons'>
 
-                {/* Archive Button */}
                 {PostreportData ? (PostreportData[0].archived === true ? "" : <button onClick={() => archivePost(PostreportData[0].reported_post_id)}>Remove Post</button>) : "Loading..."}
-                {/* Update Status Button */}
                 {!isUpdatingStatus && PostreportData ? (PostreportData[0].report_status === 'unread' ? <button onClick={() => updateReportStatus({ selectedPost, status: "ongoing" })} disabled={isUpdatingStatus}>Mark As Ongoing</button> : "") :
                     (isUpdated && isUpdatingStatus ? "Updated Successfully" : (<button disabled={isUpdatingStatus} style={isUpdatingStatus ? { backgroundColor: 'gray', cursor: 'not-allowed' } : {}}>Updating As Ongoing</button>))}
 
-                {/* Mark as Read Button */}
                 <button onClick={() => updateReportStatus({ selectedPost, status: "done" })} disabled={isUpdatingStatus}>Mark As Done</button>
-            </div>
+            </div> */}
         </div>
     );
 }
 
-export default Reported_post_view;
+export default Reported_post_done_view;

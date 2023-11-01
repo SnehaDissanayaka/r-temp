@@ -8,4 +8,4 @@ router.post("/addBadge", addBadge);
 router.post("/editBadge", editBadge);
 router.delete("/deleteBadge", deleteBadge);
 
-export default router;
+export default router;    

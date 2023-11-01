@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 .profile_main {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     width: 70%;
     position: absolute;
     top: 60px;
@@ -67,6 +68,8 @@
             border-collapse: collapse;
             border-spacing: 0;
             margin: 0 0 20px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 
             th {
                 text-align: left;
@@ -81,10 +84,12 @@
 
                 input {
                     border: none;
-                    width: 100%;
+                    width: 80%;
                     padding: 10px;
                     color: #656565;
                     border-bottom: 1px solid #e6e6e6;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
                 }
 
                 text-align: left;
@@ -101,7 +106,74 @@
                 select#gender {
                     Border: none;
                 }
+
+                button {
+                    background-color: #2B3674;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 8px 20px;
+                    margin: 10px 0;
+                    cursor: pointer;
+                    font-weight: bold;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
+                }
+
+
             }
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            margin: 10px 0;
+
+            .save {
+                background-color: #2B3674;
+                color: #ffffff;
+                border: none;
+                border-radius: 5px;
+                padding: 8px 20px;
+                margin: 10px 0;
+                cursor: pointer;
+                font-weight: bold;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .cancel {
+                background-color: #ffffff;
+                color: #2B3674;
+                border: none;
+                border-radius: 5px;
+                padding: 8px 20px;
+                margin: 10px 0;
+                cursor: pointer;
+                font-weight: bold;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            // .save{
+
+            // }
+            // .cancel{
+
+            // }
+        }
+
+        .edit {
+            background-color: #ffffff;
+            color: #2B3674;
+            border: solid 1px #2B3674;
+            border-radius: 5px;
+            padding: 8px 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-weight: bold;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
         }
     }
 }

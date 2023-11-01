@@ -13,7 +13,6 @@ const addNewBadge = asyncHandler(async (badge) => {
 const getAllbadges = asyncHandler(async () => {
     const sql = 'SELECT * FROM badge_details';
     const result = await query(sql);
-
     return result.rows;
 })
 

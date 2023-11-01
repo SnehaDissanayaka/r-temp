@@ -6,7 +6,7 @@ import Post_Report_td from './post_reports_d';
 import User_Report_td from './user_reports_d';
 import Report_Overview from './overview';
 
-function Reports() {
+function Reports({ postImageDisplayed, setpostImageDisplayed }) {
     const [selectedMenuItem, setSelectedMenuItem] = useState('Report Overview');
 
     const handleMenuItemClick = (menuItem) => {
@@ -15,8 +15,7 @@ function Reports() {
 
     return (
         <div className="report_main">
-            <div className="report_menu">
-                {/* A radio button group */}
+            {/* <div className="report_menu">
                 <div
                     className={`report_menu_item ${selectedMenuItem === 'Report Overview' ? 'active' : ''}`}
                     onClick={() => handleMenuItemClick('Report Overview')}
@@ -35,13 +34,13 @@ function Reports() {
                 >
                     <p>User Reports</p>
                 </div>
-            </div>
-            {selectedMenuItem === 'Report Overview' && <Report_Overview />}
+            </div> */}
+            {/* {selectedMenuItem === 'Report Overview' && <Report_Overview />} */}
             <div className="tables">
-                {selectedMenuItem === 'Post Reports' && <Post_Report_tnd />}
-                {selectedMenuItem === 'User Reports' && <User_Report_tnd />}
-                {selectedMenuItem === 'Post Reports' && <Post_Report_td />}
-                {selectedMenuItem === 'User Reports' && <User_Report_td />}
+                {<Post_Report_tnd postImageDisplayed={postImageDisplayed} setpostImageDisplayed={setpostImageDisplayed} />}
+                {/* {selectedMenuItem === 'User Reports' && <User_Report_tnd />} */}
+                {<Post_Report_td postImageDisplayed={postImageDisplayed} setpostImageDisplayed={setpostImageDisplayed} />}
+                {/* {selectedMenuItem === 'User Reports' && <User_Report_td />} */}
             </div>
         </div>
     );

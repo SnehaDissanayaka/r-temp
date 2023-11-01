@@ -4,7 +4,7 @@ import { makeRequest } from "../../axios";
 import Icon from '@mui/material/Icon';
 import Reported_post_view from './view_post';
 
-function Post_Report_tnd() {
+function Post_Report_tnd({ postImageDisplayed, setpostImageDisplayed }) {
     const [selectPost, setSelectPost] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [displayedData, setDisplayedData] = useState([]);
@@ -49,12 +49,12 @@ function Post_Report_tnd() {
         }
     };
 
-    console.log(reportsDataPRND);
+    // console.log(reportsDataPRND);
 
     return (
         <div className={`t-div`}>
             {selectPost !== 0 ? (
-                <Reported_post_view selectedPost={selectPost} onBackToReports={handleBackToReports} />
+                <Reported_post_view selectedPost={selectPost} onBackToReports={handleBackToReports} postImageDisplayed={postImageDisplayed} setpostImageDisplayed={setpostImageDisplayed} />
             ) : (
                 <div>
                     <div className={`t-div-topic`}>
