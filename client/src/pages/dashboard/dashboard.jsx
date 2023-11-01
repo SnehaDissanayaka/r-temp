@@ -2,7 +2,6 @@ import './dashboard.scss';
 import ContentCreators from '../../components/contentCreators/contentCreators';
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import { BarChart } from './user_charts';
 
 function Dashboard() {
 
