@@ -4,6 +4,7 @@ dotenv.config();
 import cookieParser from 'cookie-parser';
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import cors from 'cors';
+import multer from "multer";
 import { connectDB } from "./config/db.js";
 const port = process.env.PORT || 5000;
 
@@ -43,6 +44,18 @@ app.use(cors({
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true // Allow credentials in the request
 }));
+
+//image upload
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, "../client/public/upload");
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
 
 // report routes
 app.use('/server/reports', ReportsRoutes);

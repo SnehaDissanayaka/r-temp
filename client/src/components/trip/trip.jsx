@@ -182,7 +182,7 @@ const Trip = () => {
                         <tbody>
                             {displayedData && displayedData.map((row) => (
                                 <tr key={row.type_id}>
-                                    <td style={{ width: '400px' }}>
+                                    <td style={{ width: '500px' }}>
                                         {editTripType === row.type_id ? (
                                             // Render an input field when in edit mode
                                             <input
