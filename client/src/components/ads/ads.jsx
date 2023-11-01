@@ -1,21 +1,69 @@
 import { Link } from 'react-router-dom';
 import './ads.scss';
+import React from 'react';
+import { useQuery } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
 
 function Ads() {
+
+    const { data: adsAS } = useQuery(
+        ["adSData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/adsS`);
+            return response.data;
+        }
+    );
+
+    const { data: adsAP } = useQuery(
+        ["adPData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/adsP`);
+            return response.data;
+        }
+    );
+
+    const { data: adsAR } = useQuery(
+        ["adRData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/adsR`);
+            return response.data;
+        }
+    );
+
+    const { data: adsDisplay } = useQuery(
+        ["adData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/adDisplay`);
+            return response.data;
+        }
+    );
+
     return(
         <div className="ads_main">
             <div className="stat">
                 <div className="stat-item">
                     <div className="stat-item-title">Advertisements Submitted</div>
-                    <div className="stat-item-value">45</div>
+                    <div className="stat-item-value">
+                        {adsAS && (
+                            <span>{adsAS[0]?.count}</span>
+                        )}
+                    </div>
                 </div>
                 <div className="stat-item">
                     <div className="stat-item-title">Advertisements Published</div>
-                    <div className="stat-item-value">35</div>
+                    <div className="stat-item-value">
+                        {adsAP && (
+                            <span>{adsAP[0]?.count}</span>
+                        )}
+                    </div>
                 </div>
                 <div className="stat-item">
                     <div className="stat-item-title">Advertisements Returned</div>
-                    <div className="stat-item-value">10</div>
+                    <div className="stat-item-value">
+                        {adsAR && (
+                            <span>{adsAR[0]?.count}</span>
+                        )}
+                    </div>
                 </div>
             </div>
             <div className="ads">
@@ -24,97 +72,27 @@ function Ads() {
                     <div className="ads-item">
                         <table>
                             <tr>
-                                <th>Creator</th>
+                                <th>Title</th>
                                 <th>Type</th>
-                                <th>Status</th>
                                 <th>Date</th>
-                                <th>Location</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
-                            <tr>
-                                <td>Hilton</td>
-                                <td>Hotel</td>
-                                <td>Submitted</td>
-                                <td>2023-08-02</td>
-                                <td>Nuwara-eliya</td>
-                                <td>
-                                    <Link to='/adviewpage' className='link'>
-                                        <span class="material-icons">
-                                            visibility
-                                        </span>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ocean Wave</td>
-                                <td>Shop</td>
-                                <td>Published</td>
-                                <td>2023-06-15</td>
-                                <td>Kandy</td>
-                                <td>
-                                    <Link to='/adviewpage' className='link'>
-                                        <span class="material-icons">
-                                            visibility
-                                        </span>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>John Dom</td>
-                                <td>Taxi</td>
-                                <td>Submitted</td>
-                                <td>2023-02-02</td>
-                                <td>Colombo</td>
-                                <td>
-                                    <Link to='/advertisementspage' className='link'>
-                                        <span class="material-icons">
-                                            visibility
-                                        </span>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Hilton</td>
-                                <td>Hotel</td>
-                                <td>Submitted</td>
-                                <td>2023-08-02</td>
-                                <td>Nuwara-eliya</td>
-                                <td>
-                                    <Link to='/advertisementspage' className='link'>
-                                        <span class="material-icons">
-                                            visibility
-                                        </span>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Ocean Wave</td>
-                                <td>Shop</td>
-                                <td>Published</td>
-                                <td>2023-06-15</td>
-                                <td>Kandy</td>
-                                <td>
-                                    <Link to='/advertisementspage' className='link'>
-                                        <span class="material-icons">
-                                            visibility
-                                        </span>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>John Dom</td>
-                                <td>Taxi</td>
-                                <td>Submitted</td>
-                                <td>2023-02-02</td>
-                                <td>Colombo</td>
-                                <td>
-                                    <Link to='/advertisementspage' className='link'>
-                                        <span class="material-icons">
-                                            visibility
-                                        </span>
-                                    </Link>
-                                </td>
-                            </tr>
+                            {adsDisplay && adsDisplay.map((row) => (
+                                <tr key={row.user_id}>
+                                    <td>{row.title}</td>
+                                    <td>{row.service_type}</td>
+                                    <td>{row.created_at}</td>
+                                    <td>{row.status}</td>
+                                    <td>
+                                        <Link to='/adviewpage' className='link'>
+                                            <span class="material-icons">
+                                                visibility
+                                            </span>
+                                        </Link>
+                                    </td>
+                                </tr>
+                            ))}
                         </table>
                     </div>
                 </div>

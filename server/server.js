@@ -20,7 +20,7 @@ import feedRoutes from "./routes/feedRoutes.js"
 import ReportsRoutes from "./routes/reportsRoutes.js";
 import adminbadgeRoutes from "./routes/adminbadgeRoutes.js";
 import tripsRoutes from "./routes/tripsRoutes.js";
-
+import adminRoutes from "./routes/adminRoutes.js";
 
 
 // start DB connection
@@ -87,6 +87,8 @@ app.use("/server/users", userRoutes);
 // trip routes
 app.use("/server/trips", tripsRoutes);
 
+//admin routes
+app.use("/server/admin", adminRoutes);
 
 app.get('/', (req, res) => res.send('Server is ready'));
 

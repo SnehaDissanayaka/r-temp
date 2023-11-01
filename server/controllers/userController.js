@@ -39,6 +39,8 @@ const loginUser = asyncHandler(async (req, res) => {
             gender: user.gender,
 
         });
+
+        console.log( user.admin_img);
     } else {
         res.status(400).json("Invalid Email or Password");
         // throw new Error("Invalid email or password");
@@ -109,6 +111,8 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
             profile_pic: user.admin_img,
             gender: user.gender,
         });
+        console.log( user.admin_img);
+
     } else {
         res.status(404);
         throw new Error("User not found");
@@ -134,6 +138,8 @@ const getUserProfile = asyncHandler(async (req, res) => {
             profile_pic: user.admin_img,
             gender: user.gender,
         });
+        console.log( user.admin_img);
+
     } else {
         res.status(404);
         throw new Error("User not found");

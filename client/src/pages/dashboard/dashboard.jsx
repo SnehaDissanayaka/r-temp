@@ -1,70 +1,141 @@
 import './dashboard.scss';
 import ContentCreators from '../../components/contentCreators/contentCreators';
-import EditTrip from '../../components/editTrip/editTrip';
-import Chart1 from '../../assets/images/chart.jpg';
+import { useQuery } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
+import { BarChart } from './user_charts';
 
 function Dashboard() {
+
+    const { data: adsAS } = useQuery(
+        ["adTData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/submitAds`);
+            return response.data;
+        }
+    );
+
+    const { data: reportsTR } = useQuery(
+        ["reportsTData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/reportsToday`);
+            return response.data;
+        }
+    );
+
+    const { data: postsTP } = useQuery(
+        ["postsTData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/postsToday`);
+            return response.data;
+        }
+    );
+
+    const { data: userTravellerC } = useQuery(
+        ["uTrCData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/utraM`);
+            return response.data;
+        }
+    );
+
+    const { data: userTaxiC } = useQuery(
+        ["uTaxCData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/utaxM`);
+            return response.data;
+        }
+    );
+
+    const { data: userGuideC } = useQuery(
+        ["uGuiCData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/uguiM`);
+            return response.data;
+        }
+    );
+
+    const { data: userServiceC } = useQuery(
+        ["uservCData"],
+        async () => {
+            const response = await makeRequest.get(`/admin/uservM`);
+            return response.data;
+        }
+    );
+
     return(
         <div className='dashboard_main'>
             <div className="stat">
-                <div className="stat-item">
-                    <div className="stat-item-title">Ads Submitted</div>
-                    <div className="stat-item-value">45</div>
-                </div>
-                <div className="stat-item">
-                    <div className="stat-item-title">Reports Unread</div>
-                    <div className="stat-item-value">35</div>
-                </div>
-                <div className="stat-item">
-                    <div className="stat-item-title">Posts Today</div>
-                    <div className="stat-item-value">123</div>
-                </div>
-                <div className="stat-item">
-                    <div className="stat-item-title">Reports Ongoing</div>
-                    <div className="stat-item-value">45</div>
+                <h1>New Submissions Today</h1>
+                <div className="statbox">
+                    <div className="stat-item">
+                        <div className="stat-item-title">Advertisement Requests Today</div>
+                        <div className="stat-item-value">
+                            {userTravellerC && (
+                                <span>{userTravellerC[0]?.count}</span>
+                            )}
+                        </div>
+                    </div>
+                    <div className="stat-item">
+                        <div className="stat-item-title">Reports Added Today</div>
+                        <div className="stat-item-value">
+                            {userTaxiC && (
+                                <span>{userTaxiC[0]?.count}</span>
+                            )}
+                        </div>
+                    </div>
+                    <div className="stat-item">
+                        <div className="stat-item-title">Posts Added Today</div>
+                        <div className="stat-item-value">
+                            {userGuideC && (
+                                <span>{userGuideC[0]?.count}</span>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="chart">
                 <div className="daily-chart">
-                    <h3>Daily Interactions</h3>
-                    <div className="traffic">
-                        <div className="daily">
-                            <h4>Daily Traffic</h4>
-                            <div className="count">
-                                <span class="material-icons">
-                                    arrow_drop_up
-                                </span>
-                                <span className="count-value">
-                                    +2.45%
-                                </span>
+                    <h3>New User Registrations</h3>
+                    <div className="newusers">
+                        <div className="us">
+                            <h4>Travellers</h4>
+                            <div className="us_count">
+                                {userServiceC && (
+                                    <span>{userServiceC[0]?.count}</span>
+                                )}
                             </div>
                         </div>
-                        <div className="visitors">
-                            <span className='visit-count'>
-                                2.596
-                            </span>
-                            <span className='visit-text'>
-                                Visitors
-                            </span>
+                        <div className="us">
+                            <h4>Taxis</h4>
+                            <div className="us_count">
+                                {postsTP && (
+                                    <span>{postsTP[0]?.count}</span>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className='Chart'>
-                        <img src= {Chart1} alt="Chart" />
+                        <div className="us">
+                            <h4>Guides</h4>
+                            <div className="us_count">
+                                {postsTP && (
+                                    <span>{postsTP[0]?.count}</span>
+                                )}
+                            </div>
+                        </div>
+                        <div className="us">
+                            <h4>Services</h4>
+                            <div className="us_count">
+                                {postsTP && (
+                                    <span>{postsTP[0]?.count}</span>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="top-content-creators">
                     <h3>Top Content Creators</h3>
                     <div className="creators">
                         <ContentCreators />
-                        <ContentCreators />
-                        <ContentCreators />
                     </div>
-                </div>
-            </div>
-            <div className="select">
-                <div className="select-item">
-                    <h3>Available Trip Types</h3>
-                    <EditTrip />
                 </div>
             </div>
         </div>

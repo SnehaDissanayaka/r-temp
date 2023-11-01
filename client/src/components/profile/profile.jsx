@@ -83,7 +83,7 @@ function Profile() {
         },
         {
             onSuccess: () => {
-                setTriggerRefetch(true);
+                // setTriggerRefetch(true);
             },
         }
     );
@@ -93,7 +93,7 @@ function Profile() {
         let imgUrl = "";
         if (file) imgUrl = await upload();
         mutation.mutate({ user_id, img: imgUrl });
-        setOpenUpdateCP(false);
+        // setOpenUpdateCP(false);
         setFile(null);
     };
 

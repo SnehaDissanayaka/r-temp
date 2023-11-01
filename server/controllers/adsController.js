@@ -52,4 +52,15 @@ const getAdsFeed = asyncHandler(async (req, res) => {
     }
 });
 
-export { getAds, addAd, removeAds, getAdsFeed };
+const getAdvertisementsD = asyncHandler(async (req, res) => {
+    const adsd = await getAllAds();
+
+    if (adsd) {
+        res.status(200).json(preports);
+    } else {
+        res.status(404);
+        throw new Error("Users not found");
+    }
+});
+
+export { getAds, addAd, removeAds, getAdsFeed, getAdvertisementsD };
