@@ -11,6 +11,8 @@ import { getTaxiD } from "../controllers/adminController.js";
 import { getHotelD } from "../controllers/adminController.js";
 import { getOsD } from "../controllers/adminController.js";
 import { addAdmin } from "../controllers/adminController.js";
+import { getTraMC } from "../controllers/adminController.js";
+import { getCreateT } from "../controllers/adminController.js";
 
 router.get("/submitAds", getadRequested);
 router.get("/reportsToday", getreportsRequested);
@@ -33,5 +35,9 @@ router.get("/hotelsD", getHotelD);
 router.get("/OsData", getOsD);
 
 router.post("/admins", addAdmin);
+
+router.get("/utraM", getTraMC);
+
+router.get("/conCreT", getCreateT);
 
 export default router;

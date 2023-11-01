@@ -18,7 +18,7 @@
         width: 100%;
         h1{
             color: #2B3674;
-            margin: 10px;
+            margin: 20px;
             font-size: 30px;
             font-family: 'klavika-bold';
             display: flex;
@@ -55,7 +55,7 @@
     }
     .chart{
         width: 100%;
-        height: 460px;
+        height: 441px;
         border-radius: 5px;
         display: flex;
         .daily-chart{
@@ -66,6 +66,35 @@
             margin-top: 20px;
             display: flex;
             flex-direction: column;
+            .newusers{
+                background-color: #ECFBFE;
+                height: 80%;
+                width: 80%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .newuser-item{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    .us{
+                        font-size: 25px;
+                        font-family: 'klavika-light';   
+                        color: #2B3674;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 10px;
+                        padding: 20px;
+                        background-color: #ffffff;
+                        width: 150px;
+                    }
+                }
+            }
         }
         .top-content-creators{
             width: 60%;

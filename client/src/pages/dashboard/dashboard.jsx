@@ -103,7 +103,6 @@ function Dashboard() {
                                     {userTravellerC && (
                                         <span>{userTravellerC[0]?.count}</span>
                                     )}
-                                    <span>2</span>
                                 </div>
                             </div>
                             <div className="us">
