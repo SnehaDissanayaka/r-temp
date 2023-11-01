@@ -11,17 +11,25 @@
     align-items: center;
     border-radius: 5px;
     margin: 10px;
+    background-color: #ffffff;
     .stat{
         display: flex;
         flex-direction: column;
-        background-color: #ffffff;
         width: 100%;
         h1{
             color: #2B3674;
             margin: 10px;
+            font-size: 30px;
+            font-family: 'klavika-bold';
+            display: flex;
+            justify-content: center;
+        }
+        .statbox{
+            display: flex;
+            justify-content: center;
         }
         .stat-item{
-            width: 350px;
+            width: 340px;
             height: 100px;
             background-color: #ECFBFE;
             border-radius: 5px;
