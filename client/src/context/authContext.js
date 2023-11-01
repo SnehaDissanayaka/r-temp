@@ -26,12 +26,21 @@ export const AuthContextProvider = ({ children }) => {
         setCurrentUser(newUserData);
     };
 
+    const updateProfilePic = (newProfilePic) => {
+        // Create a new copy of currentUser with the updated profile_pic
+        const newCurrentUser = { ...currentUser, profile_pic: newProfilePic };
+        setCurrentUser(newCurrentUser);
+
+        // Save the updated user data to localStorage (optional)
+        localStorage.setItem("user", JSON.stringify(newCurrentUser));
+    };
+
     useEffect(() => {
         localStorage.setItem("user", JSON.stringify(currentUser))
     }, [currentUser])
 
     return (
-        <AuthContext.Provider value={{ currentUser, login, logout, updateUser }}>
+        <AuthContext.Provider value={{ currentUser, login, logout, updateUser, updateProfilePic }}>
             {children}
         </AuthContext.Provider>
     )

@@ -57,6 +57,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+app.post("/server/upload", upload.single("file"), (req, res) => {
+    const file = req.file;
+    res.status(200).json(file.filename);
+});
+
 // report routes
 app.use('/server/reports', ReportsRoutes);
 

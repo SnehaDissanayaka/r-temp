@@ -6,7 +6,8 @@ import {
     authUser,
     findUserByID,
     isUserVerified,
-    updateAdminProfile
+    updateAdminProfile,
+    saveProfilePic
 } from "../models/userModel.js";
 
 // desc    Login user
@@ -40,7 +41,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
         });
 
-        console.log( user.admin_img);
+        console.log(user.admin_img);
     } else {
         res.status(400).json("Invalid Email or Password");
         // throw new Error("Invalid email or password");
@@ -111,7 +112,7 @@ const getCurrentUserProfile = asyncHandler(async (req, res) => {
             profile_pic: user.admin_img,
             gender: user.gender,
         });
-        console.log( user.admin_img);
+        console.log(user.admin_img);
 
     } else {
         res.status(404);
@@ -138,7 +139,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
             profile_pic: user.admin_img,
             gender: user.gender,
         });
-        console.log( user.admin_img);
+        console.log(user.admin_img);
 
     } else {
         res.status(404);
@@ -205,6 +206,22 @@ const updateAdmin = asyncHandler(async (req, res) => {
     }
 });
 
+const updateProfilePic = asyncHandler(async (req, res) => {
+    const { user_id, img } = req.body;
+    console.log(user_id);
+    console.log(img);
+    const post = await saveProfilePic(user_id, img);
+
+    if (post.rowCount > 0) {
+        res.status(201).json({
+            user_id: post.rows[0].user_id,
+        });
+    } else {
+        res.status(400);
+        throw new Error("Error");
+    }
+});
+
 
 
 export {
@@ -215,4 +232,5 @@ export {
     getUserProfile,
     updateUserProfile,
     updateAdmin,
+    updateProfilePic
 };

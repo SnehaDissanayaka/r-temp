@@ -14,7 +14,7 @@ import './profile.scss';
 function Profile() {
     const [file, setFile] = useState(null);
 
-    const { currentUser, updateUser } = useContext(AuthContext); // Use updateUser to update currentUser
+    const { currentUser, updateUser, updateProfilePic } = useContext(AuthContext); // Use updateUser to update currentUser
 
     const [profilePic, setProfilePic] = useState('');
     const [profileNotFound, setProfileNotFound] = useState('');
@@ -23,10 +23,32 @@ function Profile() {
         return require("../../../public/upload/" + currUrl);
     };
 
+    // const setImageUrl = (currUrl) => {
+    //     if (currUrl) {
+    //         return currUrl; // Use the provided URL if it's available
+    //     } else {
+    //         return DefaultProfilePic; // Use the default profile pic if currUrl is not available
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     if (currentUser && currentUser.profile_pic) {
+    //         setProfilePic(setImageUrl(currentUser.profile_pic));
+    //     }
+    // }, [currentUser]);
+
     useEffect(() => {
-        if (currentUser && currentUser.profile_pic) {
-            setProfilePic(setImageUrl(currentUser.profile_pic));
-        }
+        // Delay for 1 second (adjust the delay duration as needed)
+        const delay = setTimeout(() => {
+            if (currentUser && currentUser.profile_pic) {
+                setProfilePic(setImageUrl(currentUser.profile_pic));
+            }
+        }, 1500); // 1000 milliseconds = 1 second
+
+        return () => {
+            // Clear the timeout if the component unmounts before the delay finishes
+            clearTimeout(delay);
+        };
     }, [currentUser]);
 
     const [isEditing, setIsEditing] = useState(false);
@@ -67,9 +89,11 @@ function Profile() {
     };
 
     const upload = async () => {
+        console.log(file);
         try {
             const formData = new FormData();
             formData.append("file", file);
+            console.log(formData);
             const res = await makeRequest.post("/upload", formData);
             return res.data;
         } catch (err) {
@@ -78,15 +102,32 @@ function Profile() {
     };
 
     const mutation = useMutation(
-        (newCP) => {
-            return makeRequest.put("/users/coverpic", newCP);
+        async (newCP) => {
+            try {
+                const response = await makeRequest.put("/users/updateProfilePic", newCP);
+                console.log("Response from makeRequest.put:", newCP.img);
+                return response.data;
+            } catch (error) {
+                throw error;
+            }
         },
         {
-            onSuccess: () => {
-                // setTriggerRefetch(true);
+            onSuccess: (data, newCP) => { // Pass newCP as an argument to onSuccess
+                // Check the data here
+                console.log("Response data:", data);
+
+                // Use updateProfilePic if the data is correctly structured
+                // if (data && data.profile_pic) {
+                updateProfilePic(newCP.img);
+                // }
+            },
+            onError: (error) => {
+                console.error("An error occurred:", error);
+                // Handle the error, e.g., display an error message to the user
             },
         }
     );
+
 
     const handleUpdateCP = async (e) => {
         e.preventDefault();

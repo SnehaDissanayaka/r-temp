@@ -134,6 +134,14 @@ const updateAdminProfile = async (userID, updatedInfo) => {
     }
 };
 
+const saveProfilePic = asyncHandler(async (user_id, img) => {
+
+    const sql = 'UPDATE admin_user SET admin_img = $2 WHERE admin_id = $1 RETURNING admin_id';
+    const result = await query(sql, [user_id, img]);
+    console.log(result);
+    return result;
+});
+
 
 export {
     isUserExists,
@@ -142,5 +150,6 @@ export {
     findUserByEmail,
     findUserByID,
     isUserVerified,
-    updateAdminProfile
+    updateAdminProfile,
+    saveProfilePic
 };

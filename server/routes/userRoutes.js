@@ -6,7 +6,7 @@ import {
     logoutUser,
     getCurrentUserProfile,
     getUserProfile,
-    updateUserProfile, updateAdmin
+    updateProfilePic, updateAdmin
 } from "../controllers/userController.js";
 import protect from "../middleware/authMiddleware.js";
 import { sendVerificationEmail, verifyEmail } from "../controllers/verificationController.js";
@@ -17,6 +17,7 @@ router.post("/login", loginUser);
 router.post("/logout", logoutUser);
 router.get("/profile/:id", protect, getUserProfile);
 router.get("/profile", getCurrentUserProfile);
+router.put("/updateProfilePic", updateProfilePic);
 // router.put("/profile", protect, updateUserProfile);
 router.post("/sendVerificationEmail", sendVerificationEmail);
 router.get("/verify/:token", verifyEmail);
