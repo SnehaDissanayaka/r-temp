@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 
-import Picture9 from "../../assets/images/profile.jpg";
+import Picture9 from "../../assets/images/profile.png";
 import Logout from "../../assets/images/Logout.png";
 
 const AdminNavbar = () => {
