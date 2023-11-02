@@ -80,36 +80,6 @@ const registerUsers = asyncHandler(async (firstname, lastname, email, password) 
     return result;
 });
 
-// const updateAdminProfile = asyncHandler(async (userID, field, newValue) => {
-//     // Construct a dynamic SQL query to update the specified field for the user
-//     const sql = `UPDATE admin_user SET ${field} = $1 WHERE admin_id = $2 RETURNING *`;
-//     console.log(sql);
-//     // Execute the SQL query with the new value and user ID
-//     const result = await query(sql, [newValue, userID]);
-
-//     if (result.rowCount > 0) {
-//         return result.rows[0]; // Return the updated user profile
-//     } else {
-//         return null; // No user was updated, handle accordingly in the controller
-//     }
-// });
-
-// const updateAdminProfile = asyncHandler(async (userID, field, newValue) => {
-//     // Ensure that field is a valid column name in the admin_user table (you should validate this)
-
-//     // Construct a dynamic SQL query to update the specified field for the user
-//     const sql = `UPDATE admin_user SET ${field} = $1 WHERE admin_id = $2 RETURNING *`;
-//     console.log(sql);
-
-//     // Execute the SQL query with the new value and user ID
-//     const result = await query(sql, [newValue, userID]);
-
-//     if (result.rowCount > 0) {
-//         return result.rows[0]; // Return the updated user profile
-//     } else {
-//         return null; // No user was updated, handle accordingly in the controller
-//     }
-// });
 
 const updateAdminProfile = async (userID, updatedInfo) => {
     // Construct a dynamic SQL query to update the user's profile
@@ -138,7 +108,6 @@ const saveProfilePic = asyncHandler(async (user_id, img) => {
 
     const sql = 'UPDATE admin_user SET admin_img = $2 WHERE admin_id = $1 RETURNING admin_id';
     const result = await query(sql, [user_id, img]);
-    console.log(result);
     return result;
 });
 

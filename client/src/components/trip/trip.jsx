@@ -53,23 +53,6 @@ const Trip = () => {
         setEditTripType(null);
     };
 
-    // const handleSaveNewType = async () => {
-    //     try {
-    //         const response = await makeRequest.post("/trips/addTripType", {
-    //             name: newType,
-    //         });
-
-    //         // Trigger a refetch to get the updated data
-    //         refetch();
-
-    //         // Close the "Add New Type" section
-    //         setShowAddNewType(false);
-    //         // Clear the new type input field
-    //         setNewType("");
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
     const handleAddNewType = () => {
         setShowAddNewType(true);
@@ -128,16 +111,6 @@ const Trip = () => {
     };
 
 
-    // const handleAddClick = () => {
-    //     setDisplayOption(1);
-    //     // setEditBadge(null); // Reset the badge being edited
-    // };
-
-    // const handleEditBadge = (badge) => {
-    //     setDisplayOption(1);
-    //     setEditBadge(badge); // Set the badge being edited
-    // };
-
 
     const handlePlaceAddClick = () => {
         setDisplayOption(1); // Change the display option to 1 when adding a place
@@ -169,20 +142,17 @@ const Trip = () => {
                         <button className="cancel" onClick={handleCancelNewType}>Cancel</button>
                     </div>
                 )}
-                {/*{displayOption === 1 && (
-                    // <AddPlace setDisplayOption={setDisplayOption} />
-                )}*/}
+
                 <div className="rowb">
                     <table>
                         <thead>
                             <th>Trip Type</th>
-                            <th>View Locations</th>
                             <th>Edit</th>
                         </thead>
                         <tbody>
                             {displayedData && displayedData.map((row) => (
                                 <tr key={row.type_id}>
-                                    <td style={{ width: '500px' }}>
+                                    <td style={{ width: '900px' }}>
                                         {editTripType === row.type_id ? (
                                             // Render an input field when in edit mode
                                             <input
@@ -195,11 +165,7 @@ const Trip = () => {
                                             row.name
                                         )}
                                     </td>
-                                    <td style={{ width: '200px' }}>
-                                        {/* <span className="material-icons" onClick={() => handleViewplacesClick(row.type_id)}>
-                                            visibility
-                                        </span> */}
-                                    </td>
+
                                     <td>
                                         {editTripType === row.type_id ? (
                                             // Render save and cancel buttons when in edit mode

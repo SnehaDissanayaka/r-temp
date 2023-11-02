@@ -3,12 +3,6 @@ import { AuthContext } from '../../context/authContext';
 import { makeRequest } from "../../axios";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useMutation } from "@tanstack/react-query";
-// import DefaultProfilePic from './upload/default-profile.png';
-// import DefaultProfilePic from '../../../public/upload/default-profile.png';
-
-
-// import ProfilePic from '../../../public/upload/default-profile.png';
-// import ProfilePic from '../../assets/images/default-profile.png';
 import './profile.scss';
 
 function Profile() {
@@ -23,19 +17,6 @@ function Profile() {
         return require("../../../public/upload/" + currUrl);
     };
 
-    // const setImageUrl = (currUrl) => {
-    //     if (currUrl) {
-    //         return currUrl; // Use the provided URL if it's available
-    //     } else {
-    //         return DefaultProfilePic; // Use the default profile pic if currUrl is not available
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     if (currentUser && currentUser.profile_pic) {
-    //         setProfilePic(setImageUrl(currentUser.profile_pic));
-    //     }
-    // }, [currentUser]);
 
     useEffect(() => {
         // Delay for 1 second (adjust the delay duration as needed)
@@ -89,7 +70,7 @@ function Profile() {
     };
 
     const upload = async () => {
-        console.log(file);
+        // console.log(file);
         try {
             const formData = new FormData();
             formData.append("file", file);

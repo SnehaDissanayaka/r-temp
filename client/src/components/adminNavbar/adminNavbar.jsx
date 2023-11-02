@@ -11,7 +11,7 @@ const AdminNavbar = () => {
 
     const navigate = useNavigate(); // Initialize useNavigate
 
-    const { logout } = useContext(AuthContext);
+    const { currentUser, logout } = useContext(AuthContext);
 
     // Function for logging out
     const handleLogout = async () => {
@@ -31,15 +31,12 @@ const AdminNavbar = () => {
         <div className="admin_navbar">
             <div className="left">
                 <h1>Roamly</h1>
-                <p className="search">
-                    <i class="fa fa-search"></i>
-                </p>
+
             </div>
             <div className="right">
                 <div className="middle"></div>
                 <div className="icons">
-                    <p><i class="fa fa-commenting"></i></p>
-                    <p><i class="fa fa-bell"></i></p>
+
                     <div className="profile">
                         <img src={Picture9} alt="loading error" />
                     </div>
