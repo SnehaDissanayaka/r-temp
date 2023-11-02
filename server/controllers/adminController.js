@@ -9,6 +9,9 @@ import { getGD } from "../models/adminModel.js";
 import { getTaxD } from "../models/adminModel.js";
 import { getHD } from "../models/adminModel.js";
 import { getOtherSD } from "../models/adminModel.js";
+import { saveAdmin } from "../models/adminModel.js";
+import { getTraMonthC } from "../models/adminModel.js";
+import { getCreTable } from "../models/adminModel.js";
 
 const getadRequested = asyncHandler(async (req, res) => {
     const adreq = await getAdsRequested();
@@ -184,4 +187,26 @@ const addAdmin = asyncHandler(async (req, res) => {
     }
 });
 
-export {getadRequested, getreportsRequested, getpostsRequested, getUserAdminD, getAdS, getAdP, getAdR, getAdvDisplay, getAdvFDisplay, getTraD, getGuiD, getTaxiD, getHotelD, getOsD, addAdmin};
+const getTraMC = asyncHandler(async (req, res) => {
+    const mtra = await getTraMonthC();
+
+    if (mtra) {
+        res.status(200).json(mtra);
+    } else {
+        res.status(404);
+        throw new Error("Travellers not found");
+    }
+});
+
+const getCreateT = asyncHandler(async (req, res) => {
+    const mtra = await getCreTable();
+
+    if (mtra) {
+        res.status(200).json(mtra);
+    } else {
+        res.status(404);
+        throw new Error("Travellers not found");
+    }
+});
+
+export {getadRequested, getreportsRequested, getpostsRequested, getUserAdminD, getAdS, getAdP, getAdR, getAdvDisplay, getAdvFDisplay, getTraD, getGuiD, getTaxiD, getHotelD, getOsD, addAdmin, getTraMC, getCreateT};

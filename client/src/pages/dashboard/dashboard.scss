@@ -11,17 +11,25 @@
     align-items: center;
     border-radius: 5px;
     margin: 10px;
+    background-color: #ffffff;
     .stat{
         display: flex;
         flex-direction: column;
-        background-color: #ffffff;
         width: 100%;
         h1{
             color: #2B3674;
-            margin: 10px;
+            margin: 20px;
+            font-size: 30px;
+            font-family: 'klavika-bold';
+            display: flex;
+            justify-content: center;
+        }
+        .statbox{
+            display: flex;
+            justify-content: center;
         }
         .stat-item{
-            width: 350px;
+            width: 340px;
             height: 100px;
             background-color: #ECFBFE;
             border-radius: 5px;
@@ -47,41 +55,60 @@
     }
     .chart{
         width: 100%;
-        height: 520px;
-        background-color: #ECFBFE;
+        height: 441px;
         border-radius: 5px;
         display: flex;
         .daily-chart{
             width: 60%;
             height: 100%;
-            background-color: #ffffff;
             border-radius: 5px;
-            margin: 0 10px 0 5px;
-            padding: 10px;
             align-items: center;
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
-            h3{
-                font-size: 28px;
-                font-family: 'klavika-middium';
-                color: #0D1669;
-                text-align: center;
-                padding: 15px;
+            .newusers{
+                background-color: #ECFBFE;
+                height: 80%;
+                width: 80%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .newuser-item{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    .us{
+                        font-size: 25px;
+                        font-family: 'klavika-light';   
+                        color: #2B3674;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        margin: 10px;
+                        padding: 20px;
+                        background-color: #ffffff;
+                        width: 150px;
+                    }
+                }
             }
         }
         .top-content-creators{
             width: 60%;
             height: 100%;
-            background-color: #ffffff;
             border-radius: 5px;
             padding: 20px;
             margin: 0 10px 0 0;
         }
         h3{
-            font-size: 25px;
-            font-family: 'klavika-bold';
+            font-size: 28px;
+            font-family: 'klavika-middium';
             color: #0D1669;
             text-align: center;
+            padding: 15px;
         }
     }
     .select{
