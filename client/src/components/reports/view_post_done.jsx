@@ -17,44 +17,10 @@ function Reported_post_done_view({ selectedPost, onBackToReports, postImageDispl
 
 
     const viewImage = (image) => {
-        // console.log("Image:", image);
-        // setpostImageDisplayed(!postImageDisplayed);
-        // postImageDisplayed ? setpostImageDisplayed(false) : setpostImageDisplayed(true);
-        // postImageDisplayed(image);
+
         setpostImageDisplayed(image);
-        // console.log("Image from postimagedisplayed:", postImageDisplayed);
     }
 
-    // const archivePost = async (postID) => {
-    //     console.log("Archiving post with ID:", postID);
-    //     try {
-    //         const response = await makeRequest.post(`/reports/archivePost?postID=${postID}`);
-    //         console.log("Response data:", response.data);
-    //         return response.data;
-    //     } catch (error) {
-    //         console.error("Error archiving Post:", error);
-    //         throw error;
-    //     }
-    // };
-
-
-    // const updateReportStatus = async (Params) => {
-    //     setIsUpdatingStatus(true);
-    //     try {
-    //         setIsUpdatingStatus(false);
-    //         setIsUpdated(true);
-    //         PostreportData[0].report_status = 'ongoing';
-    //         const response = await makeRequest.post(`/reports/updateReportStatus?reportID=${Params.selectedPost}&updateTo=${Params.status}`);
-    //         if (Params.status === 'done') {
-    //             onBackToReports();
-    //         }
-    //         return response.data;
-    //     } catch (error) {
-    //         setIsUpdatingStatus(false);
-    //         console.error("Error archiving Post:", error);
-    //         throw error;
-    //     }
-    // };
 
 
 
@@ -172,7 +138,6 @@ function Reported_post_done_view({ selectedPost, onBackToReports, postImageDispl
                                 <th>Report ID</th>
                                 <th>Report Type</th>
                                 <th>Severity</th>
-                                <th>View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -183,26 +148,14 @@ function Reported_post_done_view({ selectedPost, onBackToReports, postImageDispl
                                     <td>
                                         {row.severity === 1 ? "High" : row.severity === 2 ? "Medium" : "Low"}
                                     </td>
-                                    <td>
-                                        <span className="material-icons">
-                                            visibility
-                                        </span>
-                                    </td>
+
                                 </tr>
                             ))}
                         </tbody>
                     </table>
                 </div>
             </div>
-            {/* <img src={Line} alt="line" className='line' /> */}
-            {/* <div className='buttons'>
 
-                {PostreportData ? (PostreportData[0].archived === true ? "" : <button onClick={() => archivePost(PostreportData[0].reported_post_id)}>Remove Post</button>) : "Loading..."}
-                {!isUpdatingStatus && PostreportData ? (PostreportData[0].report_status === 'unread' ? <button onClick={() => updateReportStatus({ selectedPost, status: "ongoing" })} disabled={isUpdatingStatus}>Mark As Ongoing</button> : "") :
-                    (isUpdated && isUpdatingStatus ? "Updated Successfully" : (<button disabled={isUpdatingStatus} style={isUpdatingStatus ? { backgroundColor: 'gray', cursor: 'not-allowed' } : {}}>Updating As Ongoing</button>))}
-
-                <button onClick={() => updateReportStatus({ selectedPost, status: "done" })} disabled={isUpdatingStatus}>Mark As Done</button>
-            </div> */}
         </div>
     );
 }

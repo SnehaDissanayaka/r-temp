@@ -172,7 +172,6 @@ function Reported_post_view({ selectedPost, onBackToReports, postImageDisplayed,
                                 <th>Report ID</th>
                                 <th>Report Type</th>
                                 <th>Severity</th>
-                                <th>View</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -183,11 +182,7 @@ function Reported_post_view({ selectedPost, onBackToReports, postImageDisplayed,
                                     <td>
                                         {row.severity === 1 ? "High" : row.severity === 2 ? "Medium" : "Low"}
                                     </td>
-                                    <td>
-                                        <span className="material-icons">
-                                            visibility
-                                        </span>
-                                    </td>
+
                                 </tr>
                             ))}
                         </tbody>

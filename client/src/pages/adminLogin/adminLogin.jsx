@@ -45,7 +45,7 @@ function AdminLogin() {
             <img src={Image} alt="login" className="bg" />
             <div className="admin_login">
                 <div className="admin_login_title">
-                    <p>Login to Admin Portal</p>
+                    <p>Login to Roamly<br /> Admin Portal</p>
                 </div>
                 <div className="error">
                     {err && err}
@@ -81,8 +81,6 @@ function AdminLogin() {
                             placeholder="Enter your password"
                             value={inputs.password}
                             onChange={handleChange} />
-
-                        <p className="admin_login_forgot">Forgot Password?</p>
 
                         <button type="submit"
                             className='admin_login_btn'
