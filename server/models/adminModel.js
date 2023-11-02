@@ -126,7 +126,8 @@ const getTraMonthC = asyncHandler(async () => {
 
 const getCreTable = asyncHandler(async () => {
     //const sql = "SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id";
-    const sql = "SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img, badge_counts.badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id INNER JOIN ( SELECT users.user_id, COUNT(badges.badge_id) AS badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id GROUP BY users.user_id ) AS badge_counts ON users.user_id = badge_counts.user_id ORDER BY badge_counts.badge_count DESC";
+    //const sql = "SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img, badge_counts.badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id INNER JOIN ( SELECT users.user_id, COUNT(badges.badge_id) AS badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id GROUP BY users.user_id ) AS badge_counts ON users.user_id = badge_counts.user_id ORDER BY badge_counts.badge_count DESC";
+    const sql = `SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id ORDER BY badges.date_column ASC; -- Replace "date_column" with the actual date column name`;
     const result = await query(sql);
     return result.rows;
 });
