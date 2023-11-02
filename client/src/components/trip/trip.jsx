@@ -123,7 +123,7 @@ const Trip = () => {
             {/* <PersonalizingForm /> */}
             <div className="badge_content">
                 <div className="badges">
-                    <h2>Trips</h2>
+                    <h2>Trip Types</h2>
                     <button onClick={handleAddNewType}>Add Trip Type
                         <Icon className="material-icons icon-color">
                             add_circle
