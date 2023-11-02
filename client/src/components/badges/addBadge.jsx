@@ -16,6 +16,8 @@ function Addbadge({ onBackToBadges, mode, initialData, onSave }) {
         onBackToBadges(); // Call the provided function to go back to the table view
     };
 
+    // const mode = initialData ? 'edit' : 'add';
+
     // const [inputs, setInputs] = useState({
     //     badge_id: generateUniqueID(),
     //     badge_name: "",
@@ -45,49 +47,49 @@ function Addbadge({ onBackToBadges, mode, initialData, onSave }) {
         setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    const addBadge = async () => {
-        console.log("Archiving post with ID:", inputs.badge_type);
-        try {
-            const response = await makeRequest.post(`/adminbadges/addBadge`, inputs);
-            console.log("Response data:", response.data);
-            window.alert("Badge added successfully!");
+    // const addBadge = async () => {
+    //     console.log("Archiving post with ID:", inputs.badge_type);
+    //     try {
+    //         const response = await makeRequest.post(`/adminbadges/addBadge`, inputs);
+    //         console.log("Response data:", response.data);
+    //         window.alert("Badge added successfully!");
 
-            // Redirect to a different URL
-            window.location.href = "/badgespage"; // Replace "/your-new-url" with the URL you want to redirect to
-        } catch (error) {
-            window.alert("Badge added successfully!");
+    //         // Redirect to a different URL
+    //         window.location.href = "/badgespage"; // Replace "/your-new-url" with the URL you want to redirect to
+    //     } catch (error) {
+    //         window.alert("Badge added successfully!");
 
-            window.location.href = "/badgespage"; // Replace "/your-new-url" with the URL you want to redirect to
+    //         window.location.href = "/badgespage"; // Replace "/your-new-url" with the URL you want to redirect to
 
-            console.error("Error archiving Post:", error);
-            throw error;
-        }
+    //         console.error("Error archiving Post:", error);
+    //         throw error;
+    //     }
 
 
-    };
+    // };
 
     // console.log("inputs:", inputs);
 
     const handleSubmit = async () => {
-        try {
-            if (isEditMode) {
-                // Handle editing logic here
-                // Example: const response = await makeRequest.put(`/adminbadges/editBadge/${inputs.badge_id}`, inputs);
-                const response = await makeRequest.put(`/adminbadges/editBadge/?badgeID=${inputs.badge_id}`, inputs);
-                onSave(response.data);
+        // try {
+        if (isEditMode) {
+            // Handle editing logic here
+            // Example: const response = await makeRequest.put(`/adminbadges/editBadge/${inputs.badge_id}`, inputs);
+            const response = await makeRequest.put(`/adminbadges/editBadge/?badgeID=${inputs.badge_id}`, inputs);
+            // onSave(response.data);
 
-            } else {
-                // Handle adding logic here
-                console.log("inputs:", inputs);
-
-                const response = await makeRequest.post(`/adminbadges/addBadge`, inputs);
-                onSave(response.data);
-            }
-        } catch (error) {
-            console.log("EROOOOOOOOORRR");
-            console.error("Error:", error);
-            // Handle error as needed
+        } else {
+            // Handle adding logic here
+            console.log("inputs:", inputs);
+            const response = await makeRequest.post(`/adminbadges/addBadge`, inputs);
+            // onSave(response.data);
         }
+        // } catch (error) {
+
+        //     console.log("EROOOOOOOOORRR");
+        //     console.error("Error:", error);
+        //     // Handle error as needed
+        // }
     };
 
     return (
