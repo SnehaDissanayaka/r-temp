@@ -21,7 +21,7 @@ const getPostRequested = asyncHandler(async () => {
 
 // View Admins
 const getUadminD = asyncHandler(async () => {
-    const sql = "SELECT * FROM admin";
+    const sql = "SELECT * FROM admin_user";
     const result = await query(sql);
     return result.rows;
 });
@@ -94,7 +94,7 @@ const getAdvFD = asyncHandler(async () => {
 const saveAdmin = asyncHandler(async (firstname, lastname, email, contact_no, gender, username, password) => {
 
     // Retrieve the current maximum admin_id from the database
-    const getMaxAdminIdSql = "SELECT MAX(admin_id) FROM admin";
+    const getMaxAdminIdSql = "SELECT MAX(admin_id) FROM admin_user";
     const maxAdminIdResult = await query(getMaxAdminIdSql);
     
     // Calculate the new admin_id by adding 1 to the current maximum
@@ -103,7 +103,7 @@ const saveAdmin = asyncHandler(async (firstname, lastname, email, contact_no, ge
 
     // Insert the new admin with the calculated admin_id
     const sql =
-        "INSERT INTO admin (admin_id, firstname, lastname, email, contact_no, gender, username, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
+        "INSERT INTO admin_user (admin_id, firstname, lastname, email, contact_no, gender, username, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *";
     const result = await query(sql, [
         admin_id,
         firstname,
@@ -117,12 +117,6 @@ const saveAdmin = asyncHandler(async (firstname, lastname, email, contact_no, ge
 
     return result;
 });
-
-/*const getTraMonthC = asyncHandler(async () => {
-    const sql = "SELECT COUNT(*) FROM users WHERE EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM current_date) AND EXTRACT(MONTH FROM created_at) = EXTRACT(MONTH FROM current_date) AND user_type = 'Traveller' ;";
-    const result = await query(sql);
-    return result.rows;
-});*/
 
 const getTraMonthC = asyncHandler(async () => {
     const sql = "SELECT COUNT(*) FROM users WHERE user_type = 'Traveller' ;";

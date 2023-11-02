@@ -14,7 +14,7 @@ function UserDetails() {
             <div className="user_one">
                 <div className="user_titlebar">
                     <div className="user_title">
-                        <h2>Services</h2>
+                        <h2>Admin</h2>
                     </div>
                     <div className="user_buttons">
                         <div className="botton_box">
@@ -32,7 +32,7 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_admin_table">
-                    <ServiceTable />
+                    <AdminTable />
                 </div>
             </div>
             <div className="user_two">
@@ -49,7 +49,7 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_traveler_table">
-                    <HotelTable />
+                    <TravelerTable />
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_traveler_table">
-                    <TravelerTable />
+                    <TaxiTable />
                 </div>
             </div>
         </div>
@@ -104,13 +104,13 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_traveler_table">
-                    <TaxiTable />
+                    <HotelTable />
                 </div>
             </div>
             <div className="user_two">
                 <div className="user_titlebar">
                     <div className="user_title">
-                        <h2>Admins</h2>
+                        <h2>Service Providers</h2>
                     </div>
                     <div className="user_buttons">
                         <div className="botton_box">
@@ -128,7 +128,7 @@ function UserDetails() {
                     </div>
                 </div>
                 <div className="user_traveler_table">
-                    <AdminTable />
+                    <ServiceTable />
                 </div>
             </div>
         </div>

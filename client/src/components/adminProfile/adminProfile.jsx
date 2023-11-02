@@ -15,7 +15,7 @@ function AdminProfile() {
                         <img src={ProfilePic} alt="Avatar" />
                     </div>
                     <div className='name'>
-                        <h1>John Doe</h1>
+                        <h1>Sneha</h1>
                     </div>
                     <div className='actor'>
                         <h3>Admin</h3>
@@ -26,19 +26,19 @@ function AdminProfile() {
                         <table>
                             <tr>
                                 <th>Email</th>
-                                <td>johnd@gmail.com</td>
+                                <td>admin@gmail.com</td>
                             </tr>
                             <tr>
-                                <th>User Name</th>
-                                <td>johnyboi</td>
+                                <th>Gender</th>
+                                <td>female</td>
                             </tr>
                             <tr>
                                 <th>Contact Number</th>
-                                <td>0772244456</td>
+                                <td>0773287322</td>
                             </tr>
                             <tr>
                                 <th>Joined Date</th>
-                                <td>2023-12-12</td>
+                                <td>2023-10-12</td>
                             </tr>
                         </table>
                     </div>
@@ -49,29 +49,14 @@ function AdminProfile() {
                                 <tr>
                                     <th>Status</th>
                                     <th>Count</th>
-                                    <th>Action</th>
                                 </tr>
                                 <tr>
                                     <td>Ongoing</td>
                                     <td>30</td>
-                                    <td>
-                                        <Link to='/' className='link'>
-                                            <span class="material-icons">
-                                                visibility
-                                            </span>
-                                        </Link>
-                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Handled</td>
                                     <td>40</td>
-                                    <td>
-                                        <Link to='/' className='link'>
-                                            <span class="material-icons">
-                                                visibility
-                                            </span>
-                                        </Link>
-                                    </td>
                                 </tr>
                             </table>
                         </div>
