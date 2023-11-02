@@ -124,12 +124,30 @@ const getTraMonthC = asyncHandler(async () => {
     return result.rows;
 });
 
-const getCreTable = asyncHandler(async () => {
-    //const sql = "SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id";
-    //const sql = "SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img, badge_counts.badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id INNER JOIN ( SELECT users.user_id, COUNT(badges.badge_id) AS badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id GROUP BY users.user_id ) AS badge_counts ON users.user_id = badge_counts.user_id ORDER BY badge_counts.badge_count DESC";
-    const sql = `SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id ORDER BY badges.date_column ASC; -- Replace "date_column" with the actual date column name`;
+const getTaxMonthC = asyncHandler(async () => {
+    const sql = "SELECT COUNT(*) FROM users WHERE user_type = 'Taxi' ;";
     const result = await query(sql);
     return result.rows;
 });
 
-export { getAdsRequested, getReportRequested, getPostRequested, getUadminD, getAdsSubmitted, getAdsPublished, getAdsReturned, getAdvD, getAdvFD, getTD, getGD, getTaxD, getHD, getOtherSD, saveAdmin, getTraMonthC, getCreTable};
+const getGuiMonthC = asyncHandler(async () => {
+    const sql = "SELECT COUNT(*) FROM users WHERE user_type = 'Guide' ;";
+    const result = await query(sql);
+    return result.rows;
+});
+
+const getServMonthC = asyncHandler(async () => {
+    const sql = "SELECT COUNT(*) FROM users WHERE user_type = 'Service', 'Hotel', 'Shop' ;";
+    const result = await query(sql);
+    return result.rows;
+});
+
+const getCreTable = asyncHandler(async () => {
+    //const sql = "SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id";
+    const sql = "SELECT badges.*, users.firstname,users.lastname, users.profile_pic, badge_details.badge_img, badge_details.badge_color badge_counts.badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id INNER JOIN ( SELECT users.user_id, COUNT(badges.badge_id) AS badge_count FROM badges INNER JOIN users ON users.user_id = badges.user_id GROUP BY users.user_id ) AS badge_counts ON users.user_id = badge_counts.user_id ORDER BY badge_counts.badge_count DESC WHERE badge_id = 1;";
+    //const sql = `SELECT badges.*, users.firstname, users.profile_pic, badge_details.badge_img FROM badges INNER JOIN users ON users.user_id = badges.user_id INNER JOIN badge_details ON badges.badge_id = badge_details.badge_id ORDER BY badges.date_column ASC; -- Replace "date_column" with the actual date column name`;
+    const result = await query(sql);
+    return result.rows;
+});
+
+export { getAdsRequested, getReportRequested, getPostRequested, getUadminD, getAdsSubmitted, getAdsPublished, getAdsReturned, getAdvD, getAdvFD, getTD, getGD, getTaxD, getHD, getOtherSD, saveAdmin, getTraMonthC, getCreTable, getTaxMonthC, getGuiMonthC, getServMonthC};

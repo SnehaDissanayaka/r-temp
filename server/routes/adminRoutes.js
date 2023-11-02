@@ -11,7 +11,7 @@ import { getTaxiD } from "../controllers/adminController.js";
 import { getHotelD } from "../controllers/adminController.js";
 import { getOsD } from "../controllers/adminController.js";
 import { addAdmin } from "../controllers/adminController.js";
-import { getTraMC } from "../controllers/adminController.js";
+import { getTraMC, getTaxMC, getGuiMC, getServMC } from "../controllers/adminController.js";
 import { getCreateT } from "../controllers/adminController.js";
 
 router.get("/submitAds", getadRequested);
@@ -37,6 +37,9 @@ router.get("/OsData", getOsD);
 router.post("/admins", addAdmin);
 
 router.get("/utraM", getTraMC);
+router.get("/utaxM", getTaxMC);
+router.get("/uguiM", getGuiMC);
+router.get("/uservM", getServMC);
 
 router.get("/conCreT", getCreateT);
 
