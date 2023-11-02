@@ -138,11 +138,8 @@ function Dashboard() {
                     </div>
                 </div>
                 <div className="top-content-creators">
-                    <h3>Top Content Creators</h3>
+                    <h3>Recent Badge Winners</h3>
                     <div className="creators">
-                        <ContentCreators />
-                        <ContentCreators />
-                        <ContentCreators />
                         <ContentCreators />
                     </div>
                 </div>
